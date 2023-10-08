@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/game">
+
+    <fragment
+        android:id="@+id/game"
+        android:name="com.kdannothere.mathgame.presentation.fragments.FragmentGame"
+        android:label="game"
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_game_to_pictures"
+            app:destination="@id/pictures"
+            app:popUpTo="@id/game" />
+    </fragment>
+    <fragment
+        android:id="@+id/pictures"
+        android:name="com.kdannothere.mathgame.presentation.fragments.FragmentPictures"
+        android:label="pictures"
+        tools:layout="@layout/fragment_pictures" />
+</navigation>

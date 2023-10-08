@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MathGame</string>
+    <string name="solve_the_problem">Solve the problem</string>
+    <string name="your_pictures">Your pictures</string>
+    <string name="check">Check</string>
+    <string name="ok">OK</string>
+    <string name="pictures">Pictures</string>
+    <string name="picture">Picture</string>
+</resources>
