@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
+import com.kdannothere.mathgame.presentation.MainActivity
+import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
+import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
+import com.kdannothere.mathgame.presentation.util.basicTaskAmount
 import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,6 +25,7 @@ class FragmentGame : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<GameViewModel>()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -32,8 +38,22 @@ class FragmentGame : Fragment() {
             binding.question.text = task.question
         }.launchIn(lifecycleScope)
 
-        viewModel.pictureParts.onEach { currentNumber ->
-            binding.parts.text = "${currentNumber}/4"
+        viewModel.taskId.onEach { currentNumber ->
+            binding.taskNumber.text = "${currentNumber}/$basicTaskAmount"
+        }.launchIn(lifecycleScope)
+
+        viewModel.message.onEach { message ->
+            DialogMng.showDialog(
+                message.text,
+                message.dialogType,
+                requireActivity() as MainActivity,
+                event = {
+                    when (message.dialogType) {
+                        DialogType.nextTaskDialog -> viewModel.showNextQuestion()
+                        else -> findNavController().navigate(R.id.action_game_to_results)
+                    }
+                }
+            )
         }.launchIn(lifecycleScope)
 
         return binding.root
@@ -43,13 +63,12 @@ class FragmentGame : Fragment() {
         binding.apply {
             buttonCheck.setOnClickListener {
                 viewModel.check(
-                    requireActivity(),
                     userAnswer = binding.userAnswer.text.toString()
                 )
                 binding.userAnswer.setText("")
             }
-            buttonPictures.setOnClickListener {
-                findNavController().navigate(R.id.action_game_to_pictures)
+            buttonSkip.setOnClickListener {
+                viewModel.skipCurrentTask()
             }
         }
     }

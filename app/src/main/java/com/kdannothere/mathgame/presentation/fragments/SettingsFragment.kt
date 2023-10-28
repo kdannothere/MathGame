@@ -6,24 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.kdannothere.mathgame.databinding.FragmentPicturesBinding
-import com.kdannothere.mathgame.presentation.elements.picture.PictureAdapter
+import com.kdannothere.mathgame.databinding.FragmentSettingsBinding
 import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 
-class FragmentPictures : Fragment() {
+class SettingsFragment : Fragment() {
 
-    private var _binding: FragmentPicturesBinding? = null
+    private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GameViewModel by activityViewModels()
-    private lateinit var pictureAdapter: PictureAdapter
+    private val viewModel by activityViewModels<GameViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentPicturesBinding.inflate(inflater, container, false)
-        pictureAdapter = PictureAdapter(viewModel.pictureList)
-        binding.pictures.adapter = pictureAdapter
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
         return binding.root
     }

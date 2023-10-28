@@ -59,31 +59,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_pictures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="@string/pictures"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_check"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/orange"
         app:layout_constraintDimensionRatio="3:1"
         android:text="@string/check"
         android:textSize="45sp"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,17 +75,32 @@
         app:layout_constraintTop_toTopOf="@id/guideline_h45" />
 
     <TextView
-        android:id="@+id/parts"
+        android:id="@+id/task_number"
         android:layout_width="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
-        tools:text="0/4"
+        tools:text="1/10"
         android:textSize="40sp"
         android:textColor="@color/black"
         android:gravity="center"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/button_skip"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/arrow_right"
+        android:focusable="true"
+        android:clickable="true"
+        android:contentDescription="@string/go_to_the_next_task"
+        app:layout_constraintDimensionRatio="2:1.4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.2"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_h55"
+        app:layout_constraintTop_toTopOf="@id/guideline_h45" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_h20"

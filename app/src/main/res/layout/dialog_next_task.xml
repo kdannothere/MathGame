@@ -12,9 +12,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_horizontal|bottom"
-        android:textColor="@color/black"
+        android:textColor="@color/orange"
         android:textSize="25sp"
         android:textStyle="bold"
+        android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_h45"
         app:layout_constraintDimensionRatio="2:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,45 +23,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Message Message Message Message" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_ok"
+    <ImageView
+        android:id="@+id/next_task"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="vertical"
-        app:layout_constraintDimensionRatio="2.7:1"
+        android:contentDescription="@string/go_to_the_next_question"
+        android:src="@drawable/arrow_right"
+        app:layout_constraintDimensionRatio="2:1.4"
+        app:layout_constraintWidth_percent="0.3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_h45"
-        app:layout_constraintWidth_percent="0.4">
-
-        <ImageView
-            android:id="@+id/field_ok"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintDimensionRatio="2.7:1"
-            android:src="@drawable/rectangle_gray" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/ok_text"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:lines="1"
-            app:layout_constraintDimensionRatio="2.7:1"
-            android:text="@string/ok"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="@id/guideline_h45">
+    </ImageView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_h45"

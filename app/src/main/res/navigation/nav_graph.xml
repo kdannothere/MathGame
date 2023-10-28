@@ -3,21 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/game">
+    app:startDestination="@id/menu">
 
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.kdannothere.mathgame.presentation.fragments.MenuFragment"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menu_to_topics"
+            app:destination="@id/topics"
+            app:popUpTo="@id/menu" />
+        <action
+            android:id="@+id/action_menu_to_pictures"
+            app:destination="@id/pictures"
+            app:popUpTo="@id/menu" />
+        <action
+            android:id="@+id/action_menu_to_settings"
+            app:destination="@id/settings"
+            app:popUpTo="@id/menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/topics"
+        android:name="com.kdannothere.mathgame.presentation.fragments.TopicsFragment"
+        tools:layout="@layout/fragment_topics">
+        <action
+            android:id="@+id/action_topics_to_levels"
+            app:destination="@id/levels"
+            app:popUpTo="@id/topics" />
+    </fragment>
+    <fragment
+        android:id="@+id/levels"
+        android:name="com.kdannothere.mathgame.presentation.fragments.LevelsFragment"
+        tools:layout="@layout/fragment_levels">
+        <action
+            android:id="@+id/action_levels_to_game"
+            app:destination="@id/game"
+            app:popUpTo="@id/levels" />
+    </fragment>
     <fragment
         android:id="@+id/game"
         android:name="com.kdannothere.mathgame.presentation.fragments.FragmentGame"
-        android:label="game"
         tools:layout="@layout/fragment_game" >
         <action
-            android:id="@+id/action_game_to_pictures"
-            app:destination="@id/pictures"
-            app:popUpTo="@id/game" />
+            android:id="@+id/action_game_to_results"
+            app:destination="@id/results"
+            app:popUpTo="@id/levels" />
     </fragment>
     <fragment
         android:id="@+id/pictures"
         android:name="com.kdannothere.mathgame.presentation.fragments.FragmentPictures"
-        android:label="pictures"
         tools:layout="@layout/fragment_pictures" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.kdannothere.mathgame.presentation.fragments.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/results"
+        android:name="com.kdannothere.mathgame.presentation.fragments.ResultsFragment"
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_results_to_game"
+            app:destination="@id/game"
+            app:popUpTo="@id/levels" />
+    </fragment>
 </navigation>

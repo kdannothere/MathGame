@@ -6,4 +6,22 @@
     <string name="ok">OK</string>
     <string name="pictures">Pictures</string>
     <string name="picture">Picture</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_play_text">Play</string>
+    <string name="button_settings_text">Settings</string>
+    <string name="title_addition">Addition (+)</string>
+    <string name="title_subtraction">Subtraction (-)</string>
+    <string name="title_multiplication">Multiplication (x)</string>
+    <string name="title_division">Division (÷)</string>
+    <string name="title_topics">Topics</string>
+    <string name="title_levels">Levels</string>
+    <string name="go_to_the_next_task">Go to the next task</string>
+    <string name="title_results">Results</string>
+    <string name="correct">Correct:</string>
+    <string name="mistakes">Mistakes:</string>
+    <string name="skipped">Skipped:</string>
+    <string name="next_level">Next level</string>
+    <string name="all_levels">All levels</string>
+    <string name="go_to_the_next_question">Go to the next question</string>
+    <string name="show_results">Show results</string>
 </resources>
