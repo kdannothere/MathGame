@@ -28,7 +28,7 @@ class GameViewModel : ViewModel() {
     private val _message = MutableSharedFlow<Message>()
     val message = _message.asSharedFlow()
 
-    private val _currentTask = MutableStateFlow(Task())
+    private val _currentTask = MutableStateFlow(Task(0, "", "", ""))
     val currentTask = _currentTask.asStateFlow()
 
     private val _taskId = MutableStateFlow(1)
@@ -53,16 +53,23 @@ class GameViewModel : ViewModel() {
         val isUserCorrect = userAnswer == correctAnswer
         val message: String
         when {
+            userAnswer.isBlank() -> {
+                message = "You didn't write anything. Just skip if you don't know the answer."
+                showNewMessage(Message(message, DialogType.basicDialog))
+            }
+
             isUserCorrect -> {
                 message = "Correct!"
                 results.addOneCorrect()
+                showNewMessage(Message(message, DialogType.nextTaskDialog))
             }
+
             else -> {
                 message = "Wrong :("
                 results.addOneMistake()
+                showNewMessage(Message(message, DialogType.nextTaskDialog))
             }
         }
-        showNewMessage(Message(message, DialogType.nextTaskDialog))
     }
 
     fun showNextQuestion() {
@@ -75,10 +82,11 @@ class GameViewModel : ViewModel() {
                         Message(
                             "Congratulations! The level is passed. You got a new picture! :)",
                             DialogType.endLevelDialog
-                            )
+                        )
                     )
                     addPicture()
                 }
+
                 false -> {
                     updateCurrentTask(taskList[currentTask.value.id])
                 }

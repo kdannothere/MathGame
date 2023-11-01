@@ -12,4 +12,16 @@ object Util {
             fragment.activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+
+    // Math: find all divisors of a number
+    fun findDivisors(n: Int): List<Int> {
+        val divisors = mutableListOf<Int>()
+        for (i in 1..n) {
+            if (n % i == 0) {
+                divisors.add(i)
+            }
+        }
+        return divisors
+    }
 }

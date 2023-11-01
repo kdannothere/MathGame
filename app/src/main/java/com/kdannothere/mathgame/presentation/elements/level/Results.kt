@@ -13,6 +13,6 @@ class Results {
     }
 
     fun addOneCorrect() = ++correct
-    fun addOneMistake() = ++correct
-    fun addOneSkipped() = ++correct
+    fun addOneMistake() = ++mistakes
+    fun addOneSkipped() = ++skipped
 }

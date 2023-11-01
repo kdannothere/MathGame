@@ -24,4 +24,5 @@
     <string name="all_levels">All levels</string>
     <string name="go_to_the_next_question">Go to the next question</string>
     <string name="show_results">Show results</string>
+    <string name="skip">Skip</string>
 </resources>

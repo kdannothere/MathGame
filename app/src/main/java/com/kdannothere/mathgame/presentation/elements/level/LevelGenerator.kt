@@ -4,7 +4,7 @@ import com.kdannothere.mathgame.presentation.util.basicLevelAmount
 
 object LevelGenerator {
 
-    // the id of the first level and the first task is 1
+    // The id of the first level and the first task is 1
 
     fun getLevels(operation: String, amount: Int = basicLevelAmount): MutableList<Level> {
         return when (operation) {
@@ -19,6 +19,7 @@ object LevelGenerator {
     private fun generateLevels(amount: Int, operation: String): MutableList<Level> {
         val levelList = mutableListOf<Level>()
         repeat(amount) {
+
             val taskList = mutableListOf<Task>()
             repeat(amount) { taskId ->
                 taskList.add(

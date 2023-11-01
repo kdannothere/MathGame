@@ -12,16 +12,23 @@ object TaskGenerator {
     private val random = Random(Date().time)
     private const val invalidOperation = "ERROR - invalid operation"
 
-    fun getTask(id: Int, lvl: Int, operation: String): Task {
+    fun getTask(id: Int, lvl: Int, operation: String, previousQuestion: String = ""): Task {
         val valueN1 = getValue(lvl, operation = operation)
         val valueN2 = getValue(lvl, valueN1, operation = operation)
-        val question = "$valueN1 $operation $valueN2 = ?"
 
-        return Task(
-            id = id,
-            question = question,
-            answer = getAnswer(valueN1, valueN2, operation)
-        )
+        return when (val question = "$valueN1 $operation $valueN2 = ?") {
+            previousQuestion -> {
+                getTask(id, lvl, operation, previousQuestion)
+            }
+            else -> {
+                Task(
+                    id = id,
+                    operation = operation,
+                    question = question,
+                    answer = getAnswer(valueN1, valueN2, operation)
+                )
+            }
+        }
     }
 
     private fun getAnswer(valueN1: Int, valueN2: Int, operation: String): String {
@@ -35,33 +42,34 @@ object TaskGenerator {
         return answer.toString()
     }
 
-    private fun getValue(lvl: Int, previousValue: Int = -1, operation: String): Int {
-        val number = random.nextInt(1, 5)
-        val value = number * (1 + lvl / 3)
+    private fun getValue(
+        lvl: Int,
+        previousValue: Int = -1,
+        operation: String,
+    ): Int {
         return when (operation) {
 
-            operationAddition -> value
+            operationAddition -> random.nextInt(lvl, lvl * 3 + 1)
 
             operationSubtraction -> {
+                val value = random.nextInt(lvl, lvl * 3 + 1)
                 when {
-                    previousValue == -1 -> value
-                    previousValue < value -> value - previousValue
+                    previousValue < value -> random.nextInt(lvl, previousValue + 1)
                     else -> value
                 }
             }
 
             operationMultiplication -> {
                 when (previousValue) {
-                    -1 -> value
-                    else -> number
+                    -1 -> lvl
+                    else -> random.nextInt(1, 10 + 1)
                 }
             }
 
             operationDivision -> {
-                when {
-                    previousValue == -1 -> value
-                    previousValue % value != 0 -> getValue(lvl, previousValue, operation)
-                    else -> value
+                when (previousValue) {
+                    -1 -> random.nextInt(1, 10 + 1) * lvl
+                    else -> lvl
                 }
             }
 

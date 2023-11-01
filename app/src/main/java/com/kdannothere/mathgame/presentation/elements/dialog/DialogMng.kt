@@ -78,8 +78,11 @@ object DialogMng {
 
         val button = dialogLayout.findViewById<ImageView>(R.id.next_task)
         button.setOnClickListener {
-            showNextQuestion.invoke()
             dialog.dismiss()
+        }
+
+        dialog.setOnDismissListener {
+            showNextQuestion.invoke()
         }
 
         dialog.show()
@@ -111,8 +114,11 @@ object DialogMng {
 
         val button = dialogLayout.findViewById<ConstraintLayout>(R.id.button_results)
         button.setOnClickListener {
-            showResults.invoke()
             dialog.dismiss()
+        }
+
+        dialog.setOnDismissListener {
+            showResults.invoke()
         }
 
         dialog.show()

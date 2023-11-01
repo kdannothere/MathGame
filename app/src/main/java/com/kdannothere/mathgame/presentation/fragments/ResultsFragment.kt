@@ -46,7 +46,6 @@ class ResultsFragment : Fragment() {
 
             // Analogous to when the user presses the system Back button
             buttonAllLevels.setOnClickListener {
-                viewModel.results.clear()
                 findNavController().popBackStack()
             }
 
