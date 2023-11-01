@@ -2,6 +2,7 @@ package com.kdannothere.mathgame.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,6 @@ class FragmentGame : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<GameViewModel>()
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -39,14 +39,16 @@ class FragmentGame : Fragment() {
         }.launchIn(lifecycleScope)
 
         viewModel.taskId.onEach { currentNumber ->
+            @SuppressLint("SetTextI18n")
             binding.taskNumber.text = "${currentNumber}/$basicTaskAmount"
         }.launchIn(lifecycleScope)
 
         viewModel.message.onEach { message ->
+            Log.d("MyLog", "message.onEach")
             DialogMng.showDialog(
                 message.text,
                 message.dialogType,
-                requireActivity() as MainActivity,
+                this,
                 event = {
                     when (message.dialogType) {
                         DialogType.nextTaskDialog -> viewModel.showNextQuestion()

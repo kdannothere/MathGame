@@ -2,9 +2,11 @@ package com.kdannothere.mathgame.presentation.elements.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.textview.MaterialTextView
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.presentation.MainActivity
@@ -14,18 +16,21 @@ object DialogMng {
     fun showDialog(
         message: String,
         dialogType: String,
-        activity: MainActivity,
+        fragment: Fragment,
         event: () -> Unit = {},
     ) {
+        Log.d("MyLog", "showDialog")
         when (dialogType) {
-            DialogType.basicDialog -> showBasicDialog(message, activity)
-            DialogType.nextTaskDialog -> showNextTaskDialog(message, activity, event)
-            DialogType.endLevelDialog -> showEndLevelDialog(message, activity, event)
+            DialogType.basicDialog -> showBasicDialog(message, fragment)
+            DialogType.nextTaskDialog -> showNextTaskDialog(message, fragment, event)
+            DialogType.endLevelDialog -> showEndLevelDialog(message, fragment, event)
         }
     }
 
-    private fun showBasicDialog(message: String, activity: MainActivity) {
-        val dialogLayout = activity.layoutInflater.inflate(R.layout.dialog_basic, null)
+    private fun showBasicDialog(message: String, fragment: Fragment) {
+        val dialogLayout =
+            fragment.activity?.layoutInflater?.inflate(R.layout.dialog_basic, null) ?: return
+        val activity = fragment.activity as MainActivity
 
         val builder = AlertDialog.Builder(activity)
         builder.setView(dialogLayout)
@@ -54,10 +59,12 @@ object DialogMng {
 
     private fun showNextTaskDialog(
         message: String,
-        activity: MainActivity,
+        fragment: Fragment,
         showNextQuestion: () -> Unit,
     ) {
-        val dialogLayout = activity.layoutInflater.inflate(R.layout.dialog_next_task, null)
+        val dialogLayout =
+            fragment.activity?.layoutInflater?.inflate(R.layout.dialog_next_task, null) ?: return
+        val activity = fragment.activity as MainActivity
 
         val builder = AlertDialog.Builder(activity)
         builder.setView(dialogLayout)
@@ -90,12 +97,15 @@ object DialogMng {
 
     private fun showEndLevelDialog(
         message: String,
-        activity: MainActivity,
+        fragment: Fragment,
         showResults: () -> Unit,
     ) {
-        val dialogLayout = activity.layoutInflater.inflate(R.layout.dialog_end_level, null)
+        Log.d("MyLog", "showEndLevelDialog")
+        val dialogLayout =
+            fragment.activity?.layoutInflater?.inflate(R.layout.dialog_end_level, null) ?: return
+        val activity = fragment.activity as MainActivity
 
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity.baseContext)
         builder.setView(dialogLayout)
 
         val dialog = builder.create()
@@ -114,11 +124,19 @@ object DialogMng {
 
         val button = dialogLayout.findViewById<ConstraintLayout>(R.id.button_results)
         button.setOnClickListener {
+            Log.d("MyLog", "setOnClickListener")
             dialog.dismiss()
         }
 
         dialog.setOnDismissListener {
-            showResults.invoke()
+            Log.d("MyLog", "setOnDismissListener")
+            try {
+                if (fragment.isAdded) {
+                    showResults.invoke()
+                }
+            } catch (exception: Exception) {
+                Log.d("MyLog", "exception: ${exception.message.toString()}")
+            }
         }
 
         dialog.show()
