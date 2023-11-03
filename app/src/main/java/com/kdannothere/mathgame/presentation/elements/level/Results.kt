@@ -2,17 +2,21 @@ package com.kdannothere.mathgame.presentation.elements.level
 
 class Results {
 
-    var correct = 0
-    var mistakes = 0
-    var skipped = 0
+    private val correctTaskIdList = mutableSetOf<Int>()
+    private val mistakesTaskIdList = mutableSetOf<Int>()
+    private val skippedTaskIdList = mutableSetOf<Int>()
+
+    val correct get() = correctTaskIdList.size
+    val mistakes get() = mistakesTaskIdList.size
+    val skipped get() = skippedTaskIdList.size
 
     fun clear() {
-        correct = 0
-        mistakes = 0
-        skipped = 0
+        correctTaskIdList.clear()
+        mistakesTaskIdList.clear()
+        skippedTaskIdList.clear()
     }
 
-    fun addOneCorrect() = ++correct
-    fun addOneMistake() = ++mistakes
-    fun addOneSkipped() = ++skipped
+    fun addOneCorrect(taskId: Int) = correctTaskIdList.add(taskId)
+    fun addOneMistake(taskId: Int) = mistakesTaskIdList.add(taskId)
+    fun addOneSkipped(taskId: Int) = skippedTaskIdList.add(taskId)
 }

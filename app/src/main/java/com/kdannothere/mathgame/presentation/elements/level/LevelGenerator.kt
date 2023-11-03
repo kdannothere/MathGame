@@ -1,6 +1,7 @@
 package com.kdannothere.mathgame.presentation.elements.level
 
 import com.kdannothere.mathgame.presentation.util.basicLevelAmount
+import com.kdannothere.mathgame.presentation.util.basicTaskAmount
 
 object LevelGenerator {
 
@@ -16,24 +17,21 @@ object LevelGenerator {
         }
     }
 
-    private fun generateLevels(amount: Int, operation: String): MutableList<Level> {
+    private fun generateLevels(lvlAmount: Int, operation: String): MutableList<Level> {
         val levelList = mutableListOf<Level>()
-        repeat(amount) {
+        repeat(lvlAmount) {
+            val lvlId = it + 1
 
-            val taskList = mutableListOf<Task>()
-            repeat(amount) { taskId ->
-                taskList.add(
-                    TaskGenerator.getTask(
-                        id = taskId + 1,
-                        lvl = levelList.size + 1,
-                        operation = operation
-                    )
-                )
-            }
+            val taskList = TaskGenerator.getTaskList(
+                taskAmount = basicTaskAmount,
+                lvl = lvlId,
+                operation = operation
+            )
+
 
             levelList.add(
                 Level(
-                    id = levelList.size + 1,
+                    id = lvlId,
                     taskList
                 )
             )

@@ -12,24 +12,48 @@ object TaskGenerator {
     private val random = Random(Date().time)
     private const val invalidOperation = "ERROR - invalid operation"
 
-    fun getTask(id: Int, lvl: Int, operation: String, previousQuestion: String = ""): Task {
-        val valueN1 = getValue(lvl, operation = operation)
-        val valueN2 = getValue(lvl, valueN1, operation = operation)
-
-        return when (val question = "$valueN1 $operation $valueN2 = ?") {
-            previousQuestion -> {
-                getTask(id, lvl, operation, previousQuestion)
+    fun getTaskList(taskAmount: Int, lvl: Int, operation: String): MutableList<Task> {
+        val taskList = mutableListOf<Task>()
+        repeat(taskAmount) { index ->
+            val previousQuestion = when (index) {
+                0 -> ""
+                else -> taskList[index - 1].question
             }
-            else -> {
-                Task(
-                    id = id,
-                    operation = operation,
-                    question = question,
-                    answer = getAnswer(valueN1, valueN2, operation)
-                )
-            }
+            val task = getTask(
+                id = index + 1,
+                lvl = lvl,
+                operation = operation,
+                previousQuestion = previousQuestion
+            )
+            taskList += task
         }
+        return taskList
     }
+
+    private fun getTask(
+        id: Int,
+        lvl: Int,
+        operation: String,
+        previousQuestion: String = "",
+    ): Task {
+        var valueN1: Int
+        var valueN2: Int
+        var question: String
+
+        do {
+            valueN1 = getValue(lvl, operation)
+            valueN2 = getValue(lvl, operation, valueN1)
+            question = "$valueN1 $operation $valueN2 = ?"
+        } while (question == previousQuestion)
+
+        return Task(
+            id = id,
+            operation = operation,
+            question = question,
+            answer = getAnswer(valueN1, valueN2, operation)
+        )
+    }
+
 
     private fun getAnswer(valueN1: Int, valueN2: Int, operation: String): String {
         val answer = when (operation) {
@@ -44,8 +68,8 @@ object TaskGenerator {
 
     private fun getValue(
         lvl: Int,
-        previousValue: Int = -1,
         operation: String,
+        previousValue: Int = -1,
     ): Int {
         return when (operation) {
 

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class GameViewModel : ViewModel() {
 
     var levelList = mutableListOf<Level>()
-    private var taskList = mutableListOf<Task>()
+    var taskList = mutableListOf<Task>()
     val pictureList = mutableListOf<Picture>()
 
     val results = Results()
@@ -35,6 +35,7 @@ class GameViewModel : ViewModel() {
     val taskId = _taskId.asStateFlow()
 
     var currentLevelId = 0
+    private var isFinished = true
 
     private fun addPicture() {
         pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
@@ -60,43 +61,49 @@ class GameViewModel : ViewModel() {
 
             isUserCorrect -> {
                 message = "Correct!"
-                results.addOneCorrect()
+                results.addOneCorrect(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
             }
 
             else -> {
                 message = "Wrong :("
-                results.addOneMistake()
+                results.addOneMistake(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
             }
         }
     }
 
     fun showNextQuestion() {
-        viewModelScope.launch(MathApp.dispatcherIO) {
-
-            // is the last task?
-            when (_currentTask.value.id == taskList.size) {
-                true -> {
-                    showNewMessage(
-                        Message(
-                            "Congratulations! The level is passed. You got a new picture! :)",
-                            DialogType.endLevelDialog
-                        )
+        when (isLastTask()) {
+            true -> {
+                if (isFinished) return
+                isFinished = true
+                showNewMessage(
+                    Message(
+                        "Congratulations! The level is passed. You got a new picture! :)",
+                        DialogType.endLevelDialog
                     )
-                    addPicture()
-                }
-
-                false -> {
-                    updateCurrentTask(taskList[currentTask.value.id])
-                }
+                )
+                addPicture()
+            }
+            false -> {
+                isFinished = false
+                updateCurrentTask(task = taskList[currentTask.value.id])
             }
         }
+
     }
 
     private fun updateTaskId(id: Int) {
         viewModelScope.launch {
             _taskId.emit(id)
+        }
+    }
+
+    private fun updateCurrentTask(task: Task) {
+        viewModelScope.launch(MathApp.dispatcherIO) {
+            _currentTask.emit(task)
+            updateTaskId(id = task.id)
         }
     }
 
@@ -106,18 +113,14 @@ class GameViewModel : ViewModel() {
 
     fun updateTaskList(lvl: Int) {
         taskList = levelList[lvl - 1].taskList.toMutableList()
-        updateCurrentTask(taskList.first())
+        updateCurrentTask(task = taskList.first())
     }
 
-    private fun updateCurrentTask(task: Task) {
-        viewModelScope.launch(MathApp.dispatcherIO) {
-            _currentTask.emit(task)
-            updateTaskId(_currentTask.value.id)
-        }
-    }
-
-    fun skipCurrentTask() {
-        results.addOneSkipped()
+    fun skipCurrentTask(taskId: Int = getCurrentTaskId()) {
+        results.addOneSkipped(taskId)
         showNextQuestion()
     }
+
+    private fun isLastTask(): Boolean = currentTask.value.id == taskList.last().id
+    private fun getCurrentTaskId(): Int = currentTask.value.id
 }

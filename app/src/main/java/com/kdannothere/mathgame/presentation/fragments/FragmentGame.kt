@@ -2,7 +2,6 @@ package com.kdannothere.mathgame.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
-import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
-import com.kdannothere.mathgame.presentation.util.basicTaskAmount
 import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -38,13 +35,12 @@ class FragmentGame : Fragment() {
             binding.question.text = task.question
         }.launchIn(lifecycleScope)
 
-        viewModel.taskId.onEach { currentNumber ->
+        viewModel.taskId.onEach { id ->
             @SuppressLint("SetTextI18n")
-            binding.taskNumber.text = "${currentNumber}/$basicTaskAmount"
+            binding.taskNumber.text = "$id/${viewModel.taskList.size}"
         }.launchIn(lifecycleScope)
 
         viewModel.message.onEach { message ->
-            Log.d("MyLog", "message.onEach")
             DialogMng.showDialog(
                 message.text,
                 message.dialogType,
