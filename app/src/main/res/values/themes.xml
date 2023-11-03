@@ -5,9 +5,4 @@
         <item name="background">@color/white</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
-    <style name="LightTheme" parent="Base.Theme.MathGame">
-        <item name="backgroundColor">@color/white</item>
-        <item name="background">@color/white</item>
-    </style>
 </resources>

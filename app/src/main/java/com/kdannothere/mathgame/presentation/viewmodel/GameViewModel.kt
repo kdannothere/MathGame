@@ -35,7 +35,7 @@ class GameViewModel : ViewModel() {
     val taskId = _taskId.asStateFlow()
 
     var currentLevelId = 0
-    private var isFinished = true
+    private var isLevelFinished = true
 
     private fun addPicture() {
         pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
@@ -76,8 +76,8 @@ class GameViewModel : ViewModel() {
     fun showNextQuestion() {
         when (isLastTask()) {
             true -> {
-                if (isFinished) return
-                isFinished = true
+                if (isLevelFinished) return
+                isLevelFinished = true
                 showNewMessage(
                     Message(
                         "Congratulations! The level is passed. You got a new picture! :)",
@@ -87,7 +87,7 @@ class GameViewModel : ViewModel() {
                 addPicture()
             }
             false -> {
-                isFinished = false
+                isLevelFinished = false
                 updateCurrentTask(task = taskList[currentTask.value.id])
             }
         }
