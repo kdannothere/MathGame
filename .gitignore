@@ -5,3 +5,7 @@
 /captures
 /.idea
 /app/build
+/app/proguard-rules.pro
+/gradlew.bat
+/gradlew
+/local.properties

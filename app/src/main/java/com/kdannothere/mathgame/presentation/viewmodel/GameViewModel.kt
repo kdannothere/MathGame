@@ -66,7 +66,7 @@ class GameViewModel : ViewModel() {
             }
 
             else -> {
-                message = "Wrong :("
+                message = "Wrong :(\nThe correct answer is: $correctAnswer"
                 results.addOneMistake(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
             }
