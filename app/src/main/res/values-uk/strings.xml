@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">MathGame</string>
+    <string name="solve_the_problem">Розв\'яжи проблему</string>
+    <string name="your_pictures">Твої картинки</string>
+    <string name="check">Перевірити</string>
+    <string name="ok">Добре</string>
+    <string name="pictures">Картинки</string>
+    <string name="picture">Картинка</string>
+    <string name="button_play_text">Грати</string>
+    <string name="button_settings_text">Налаштування</string>
+    <string name="title_addition">Додавання (+)</string>
+    <string name="title_subtraction">Віднімання (-)</string>
+    <string name="title_multiplication">Множення (x)</string>
+    <string name="title_division">Ділення (÷)</string>
+    <string name="title_topics">Теми</string>
+    <string name="title_levels">Рівні</string>
+    <string name="go_to_the_next_task">Перейти до наступного завдання</string>
+    <string name="title_results">Результати</string>
+    <string name="correct">Правильно:</string>
+    <string name="mistakes">Помилки:</string>
+    <string name="skipped">Пропущено:</string>
+    <string name="next_level">Наступний рівень</string>
+    <string name="all_levels">Всі рівні</string>
+    <string name="go_to_the_next_question">Перейти до наступного питання</string>
+    <string name="show_results">Показати результати</string>
+    <string name="skip">Пропустити</string>
+    <string name="music">Музика</string>
+    <string name="sounds">Звуки</string>
+    <string name="language">Мова:</string>
+    <string name="language_current">українська</string>
+</resources>

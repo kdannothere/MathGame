@@ -5,7 +5,9 @@
 /captures
 /.idea
 /app/build
+/app/release
 /app/proguard-rules.pro
 /gradlew.bat
 /gradlew
 /local.properties
+/keystore.properties

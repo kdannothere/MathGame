@@ -3,6 +3,11 @@ package com.kdannothere.mathgame.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kdannothere.mathgame.R
+import com.kdannothere.mathgame.presentation.util.englishLanguageCode
+import com.kdannothere.mathgame.managers.DataManager
+import com.kdannothere.mathgame.managers.LangManager
+import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.elements.dialog.Message
@@ -11,11 +16,19 @@ import com.kdannothere.mathgame.presentation.elements.level.LevelGenerator
 import com.kdannothere.mathgame.presentation.elements.level.Results
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
+import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+// implement sounds in fragments
+// implement language change in all fragments
+// add button repeat
+// check out rivals
 
 class GameViewModel : ViewModel() {
 
@@ -36,6 +49,10 @@ class GameViewModel : ViewModel() {
 
     var currentLevelId = 0
     private var isLevelFinished = true
+
+    var isMusicOn = false
+    var isSoundOn = false
+    var languageCode = "en"
 
     private fun addPicture() {
         pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
@@ -86,6 +103,7 @@ class GameViewModel : ViewModel() {
                 )
                 addPicture()
             }
+
             false -> {
                 isLevelFinished = false
                 updateCurrentTask(task = taskList[currentTask.value.id])
@@ -123,4 +141,34 @@ class GameViewModel : ViewModel() {
 
     private fun isLastTask(): Boolean = currentTask.value.id == taskList.last().id
     private fun getCurrentTaskId(): Int = currentTask.value.id
+
+    fun changeLanguage() {
+        languageCode = when (languageCode) {
+            englishLanguageCode -> ukrainianLanguageCode
+            ukrainianLanguageCode -> englishLanguageCode
+            else -> englishLanguageCode
+        }
+        println("MyLog - change - $languageCode")
+    }
+
+    fun loadSettings(activity: MainActivity) {
+        viewModelScope.launch(MathApp.dispatcherIO) {
+            val isMusicOn = async { DataManager.loadMusicSetting(activity) }
+            val isSoundOn = async { DataManager.loadSoundSetting(activity) }
+            val languageCode = async { DataManager.loadLanguage(activity) }
+
+            this@GameViewModel.isMusicOn = isMusicOn.await()
+            this@GameViewModel.isSoundOn = isSoundOn.await()
+            this@GameViewModel.languageCode = languageCode.await()
+
+            withContext(MathApp.dispatcherMain) {
+                if (!isMusicOn.await()) {
+                    SoundManager.pauseMusic(
+                        mediaPlayer = activity.musicPlayer,
+                        this
+                    )
+                }
+            }
+        }
+    }
 }
