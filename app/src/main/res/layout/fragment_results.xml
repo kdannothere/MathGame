@@ -146,7 +146,7 @@
             android:focusable="true">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/all_levels"
+                android:id="@+id/title_all_levels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -177,7 +177,7 @@
             android:focusable="true">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/next_level"
+            android:id="@+id/title_next_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

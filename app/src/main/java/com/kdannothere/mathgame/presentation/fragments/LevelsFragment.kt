@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentLevelsBinding
+import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.presentation.elements.level.LevelAdapter
 import com.kdannothere.mathgame.presentation.GameViewModel
 
@@ -24,6 +26,7 @@ class LevelsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentLevelsBinding.inflate(inflater, container, false)
+        setText()
         levelAdapter = LevelAdapter(viewModel.levelList
         ) { level ->
             viewModel.apply {
@@ -45,5 +48,15 @@ class LevelsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setText() {
+        binding.apply {
+
+            val localizedContext: Context =
+                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+
+            titleLevels.text = localizedContext.getString(R.string.title_levels)
+        }
     }
 }

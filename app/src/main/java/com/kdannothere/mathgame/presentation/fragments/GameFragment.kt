@@ -1,6 +1,7 @@
 package com.kdannothere.mathgame.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
+import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.GameViewModel
@@ -28,6 +30,7 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
+        setText()
 
         setClickListeners()
 
@@ -72,5 +75,17 @@ class GameFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setText() {
+        binding.apply {
+
+            val localizedContext: Context =
+                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+
+            explanation.text = localizedContext.getString(R.string.solve_the_problem)
+            buttonCheck.text = localizedContext.getString(R.string.check)
+            buttonSkip.text = localizedContext.getString(R.string.skip)
+        }
     }
 }

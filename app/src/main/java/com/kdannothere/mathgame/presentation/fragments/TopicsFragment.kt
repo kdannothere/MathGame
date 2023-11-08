@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentTopicsBinding
+import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.presentation.util.operationAddition
 import com.kdannothere.mathgame.presentation.util.operationDivision
 import com.kdannothere.mathgame.presentation.util.operationMultiplication
@@ -26,6 +28,7 @@ class TopicsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentTopicsBinding.inflate(inflater, container, false)
+        setText()
         setClickListeners()
 
         return binding.root
@@ -54,6 +57,20 @@ class TopicsFragment : Fragment() {
                 viewModel.createLevelList(operationDivision)
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
+        }
+    }
+
+    private fun setText() {
+        binding.apply {
+
+            val localizedContext: Context =
+                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+
+            titleTopics.text = localizedContext.getString(R.string.title_topics)
+            buttonAddition.text = localizedContext.getString(R.string.title_addition)
+            buttonSubtraction.text = localizedContext.getString(R.string.title_subtraction)
+            buttonMultiplication.text = localizedContext.getString(R.string.title_multiplication)
+            buttonDivision.text = localizedContext.getString(R.string.title_division)
         }
     }
 }

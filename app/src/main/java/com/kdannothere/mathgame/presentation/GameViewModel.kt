@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// complete translation to ukrainian
 // add buttons repeat, all levels, next level, ok
 // fragment history
 // change image logic and design

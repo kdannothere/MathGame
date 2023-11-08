@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentResultsBinding
+import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.presentation.GameViewModel
 
 class ResultsFragment : Fragment() {
@@ -22,6 +24,7 @@ class ResultsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
+        setText()
         setData()
         setClickListeners()
 
@@ -65,6 +68,21 @@ class ResultsFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setText() {
+        binding.apply {
+
+            val localizedContext: Context =
+                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+
+            titleResults.text = localizedContext.getString(R.string.title_results)
+            correct.text = localizedContext.getString(R.string.correct)
+            mistakes.text = localizedContext.getString(R.string.mistakes)
+            skipped.text = localizedContext.getString(R.string.skipped)
+            titleAllLevels.text = localizedContext.getString(R.string.all_levels)
+            titleNextLevel.text = localizedContext.getString(R.string.next_level)
         }
     }
 }
