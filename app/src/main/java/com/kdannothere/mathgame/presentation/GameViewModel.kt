@@ -1,14 +1,12 @@
-package com.kdannothere.mathgame.presentation.viewmodel
+package com.kdannothere.mathgame.presentation
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.presentation.util.englishLanguageCode
 import com.kdannothere.mathgame.managers.DataManager
-import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.managers.SoundManager
-import com.kdannothere.mathgame.presentation.MainActivity
-import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.elements.dialog.Message
 import com.kdannothere.mathgame.presentation.elements.level.Level
@@ -16,19 +14,20 @@ import com.kdannothere.mathgame.presentation.elements.level.LevelGenerator
 import com.kdannothere.mathgame.presentation.elements.level.Results
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
+import com.kdannothere.mathgame.presentation.util.Util
 import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// implement sounds in fragments
-// implement language change in all fragments
-// add button repeat
-// check out rivals
+// add buttons repeat, all levels, next level, ok
+// fragment history
+// change image logic and design
 
 class GameViewModel : ViewModel() {
 
@@ -44,11 +43,11 @@ class GameViewModel : ViewModel() {
     private val _currentTask = MutableStateFlow(Task(0, "", "", ""))
     val currentTask = _currentTask.asStateFlow()
 
-    private val _taskId = MutableStateFlow(1)
-    val taskId = _taskId.asStateFlow()
-
     var currentLevelId = 0
-    private var isLevelFinished = true
+    private var isDialogShowing = false
+
+    private val _isLoading = MutableSharedFlow<Boolean>()
+    val isLoading = _isLoading.asSharedFlow()
 
     var isMusicOn = false
     var isSoundOn = false
@@ -58,9 +57,11 @@ class GameViewModel : ViewModel() {
         pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
     }
 
-    private fun showNewMessage(message: Message) {
+    private fun showNewMessage(newMessage: Message) {
         viewModelScope.launch {
-            _message.emit(message)
+            if (isDialogShowing) return@launch
+            isDialogShowing = true
+            _message.emit(newMessage)
         }
     }
 
@@ -93,11 +94,9 @@ class GameViewModel : ViewModel() {
     fun showNextQuestion() {
         when (isLastTask()) {
             true -> {
-                if (isLevelFinished) return
-                isLevelFinished = true
                 showNewMessage(
                     Message(
-                        "Congratulations! The level is passed. You got a new picture! :)",
+                        "Congratulations! The level is passed :)",
                         DialogType.endLevelDialog
                     )
                 )
@@ -105,23 +104,15 @@ class GameViewModel : ViewModel() {
             }
 
             false -> {
-                isLevelFinished = false
                 updateCurrentTask(task = taskList[currentTask.value.id])
             }
         }
 
     }
 
-    private fun updateTaskId(id: Int) {
-        viewModelScope.launch {
-            _taskId.emit(id)
-        }
-    }
-
     private fun updateCurrentTask(task: Task) {
         viewModelScope.launch(MathApp.dispatcherIO) {
             _currentTask.emit(task)
-            updateTaskId(id = task.id)
         }
     }
 
@@ -141,34 +132,47 @@ class GameViewModel : ViewModel() {
 
     private fun isLastTask(): Boolean = currentTask.value.id == taskList.last().id
     private fun getCurrentTaskId(): Int = currentTask.value.id
+    fun closeDialog() = run { isDialogShowing = false }
 
-    fun changeLanguage() {
+    fun changeLanguage(context: Context) {
         languageCode = when (languageCode) {
             englishLanguageCode -> ukrainianLanguageCode
             ukrainianLanguageCode -> englishLanguageCode
             else -> englishLanguageCode
         }
-        println("MyLog - change - $languageCode")
+        viewModelScope.launch(MathApp.dispatcherIO) {
+            DataManager.saveLanguage(context, languageCode)
+        }
     }
 
     fun loadSettings(activity: MainActivity) {
         viewModelScope.launch(MathApp.dispatcherIO) {
-            val isMusicOn = async { DataManager.loadMusicSetting(activity) }
-            val isSoundOn = async { DataManager.loadSoundSetting(activity) }
-            val languageCode = async { DataManager.loadLanguage(activity) }
-
-            this@GameViewModel.isMusicOn = isMusicOn.await()
-            this@GameViewModel.isSoundOn = isSoundOn.await()
-            this@GameViewModel.languageCode = languageCode.await()
-
-            withContext(MathApp.dispatcherMain) {
-                if (!isMusicOn.await()) {
-                    SoundManager.pauseMusic(
-                        mediaPlayer = activity.musicPlayer,
-                        this
-                    )
+            try {
+                val languageCode = async { DataManager.loadLanguage(activity) }
+                this@GameViewModel.languageCode = languageCode.await()
+                val isMusicOn = async { DataManager.loadMusicSetting(activity) }
+                this@GameViewModel.isMusicOn = isMusicOn.await()
+                val isSoundOn = async { DataManager.loadSoundSetting(activity) }
+                this@GameViewModel.isSoundOn = isSoundOn.await()
+                withContext(MathApp.dispatcherMain) {
+                    if (!isMusicOn.await()) {
+                        SoundManager.pauseMusic(
+                            mediaPlayer = activity.musicPlayer,
+                            this
+                        )
+                    }
                 }
+                _isLoading.emit(false)
+            } catch (e: Exception) {
+                showNewMessage(
+                    Message(
+                        text = "Loading went wrong...",
+                        dialogType = DialogType.basicDialog
+                    )
+                )
+                println(e.message)
             }
         }
     }
+
 }

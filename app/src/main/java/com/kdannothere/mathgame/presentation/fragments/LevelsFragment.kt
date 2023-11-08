@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentLevelsBinding
 import com.kdannothere.mathgame.presentation.elements.level.LevelAdapter
-import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
+import com.kdannothere.mathgame.presentation.GameViewModel
 
 class LevelsFragment : Fragment() {
 

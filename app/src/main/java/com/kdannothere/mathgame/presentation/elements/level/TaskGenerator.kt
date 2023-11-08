@@ -78,7 +78,10 @@ object TaskGenerator {
             operationSubtraction -> {
                 val value = random.nextInt(lvl, lvl * 3 + 1)
                 when {
-                    previousValue < value -> random.nextInt(lvl, previousValue + 1)
+                    previousValue < value && previousValue != -1 -> {
+                        random.nextInt(previousValue / 5, previousValue + 1)
+                    }
+
                     else -> value
                 }
             }

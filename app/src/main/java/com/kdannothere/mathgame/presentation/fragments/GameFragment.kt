@@ -13,11 +13,11 @@ import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
-import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
+import com.kdannothere.mathgame.presentation.GameViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class FragmentGame : Fragment() {
+class GameFragment : Fragment() {
 
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
@@ -32,19 +32,17 @@ class FragmentGame : Fragment() {
         setClickListeners()
 
         viewModel.currentTask.onEach { task ->
-            binding.question.text = task.question
-        }.launchIn(lifecycleScope)
-
-        viewModel.taskId.onEach { id ->
             @SuppressLint("SetTextI18n")
-            binding.taskNumber.text = "$id/${viewModel.taskList.size}"
+            binding.taskNumber.text = "${task.id}/${viewModel.taskList.size}"
+            binding.question.text = task.question
         }.launchIn(lifecycleScope)
 
         viewModel.message.onEach { message ->
             DialogMng.showDialog(
                 message.text,
                 message.dialogType,
-                this,
+                requireActivity(),
+                closeDialog = { viewModel.closeDialog() },
                 event = {
                     when (message.dialogType) {
                         DialogType.nextTaskDialog -> viewModel.showNextQuestion()

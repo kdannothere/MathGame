@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:tag="settings"
     tools:context=".presentation.fragments.SettingsFragment">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/button_settings_text"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"

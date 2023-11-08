@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentSettingsBinding
 import com.kdannothere.mathgame.managers.DataManager
 import com.kdannothere.mathgame.managers.LangManager
-import com.kdannothere.mathgame.managers.LangManager.setLanguage
 import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
-import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
+import com.kdannothere.mathgame.presentation.GameViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class SettingsFragment : Fragment() {
@@ -30,6 +30,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        setText()
         setClickListeners()
         updateSettings()
 
@@ -46,7 +47,6 @@ class SettingsFragment : Fragment() {
             musicValue.isChecked = viewModel.isMusicOn
             soundValue.isChecked = viewModel.isSoundOn
         }
-        viewModel.languageCode = LangManager.getLanguageCode(requireActivity())
     }
 
     private fun setClickListeners() {
@@ -83,15 +83,23 @@ class SettingsFragment : Fragment() {
                 }
             }
             languageValue.setOnClickListener {
-                lifecycleScope.launch(MathApp.dispatcherIO) {
-                    viewModel.changeLanguage()
-                    DataManager.saveLanguage(requireActivity(), viewModel.languageCode)
-                    setLanguage(requireActivity() as MainActivity, viewModel.languageCode)
-                    withContext(MathApp.dispatcherMain) {
-                        requireActivity().recreate()
-                    }
-                }
+                viewModel.changeLanguage(requireContext())
+                setText()
             }
+        }
+    }
+
+    private fun setText() {
+        binding.apply {
+
+            val localizedContext: Context =
+                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+
+            titleSettings.text = localizedContext.getString(R.string.button_settings_text)
+            music.text = localizedContext.getString(R.string.music)
+            sound.text = localizedContext.getString(R.string.sounds)
+            language.text = localizedContext.getString(R.string.language)
+            languageValue.text = localizedContext.getString(R.string.language_current)
         }
     }
 }

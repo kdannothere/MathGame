@@ -13,7 +13,7 @@ import com.kdannothere.mathgame.presentation.util.operationAddition
 import com.kdannothere.mathgame.presentation.util.operationDivision
 import com.kdannothere.mathgame.presentation.util.operationMultiplication
 import com.kdannothere.mathgame.presentation.util.operationSubtraction
-import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
+import com.kdannothere.mathgame.presentation.GameViewModel
 
 class TopicsFragment : Fragment() {
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/menu">
+    app:startDestination="@id/loading">
 
     <fragment
         android:id="@+id/menu"
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/game"
-        android:name="com.kdannothere.mathgame.presentation.fragments.FragmentGame"
+        android:name="com.kdannothere.mathgame.presentation.fragments.GameFragment"
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_game_to_results"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/pictures"
-        android:name="com.kdannothere.mathgame.presentation.fragments.FragmentPictures"
+        android:name="com.kdannothere.mathgame.presentation.fragments.PicturesFragment"
         tools:layout="@layout/fragment_pictures" />
     <fragment
         android:id="@+id/settings"
@@ -65,5 +65,15 @@
             android:id="@+id/action_results_to_game"
             app:destination="@id/game"
             app:popUpTo="@id/levels" />
+    </fragment>
+    <fragment
+        android:id="@+id/loading"
+        android:name="com.kdannothere.mathgame.presentation.fragments.LoadingFragment"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/action_loading_to_menu"
+            app:popUpTo="@id/loading"
+            app:popUpToInclusive="true"
+            app:destination="@id/menu" />
     </fragment>
 </navigation>

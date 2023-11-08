@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kdannothere.mathgame.databinding.FragmentPicturesBinding
 import com.kdannothere.mathgame.presentation.elements.picture.PictureAdapter
-import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
+import com.kdannothere.mathgame.presentation.GameViewModel
 
-class FragmentPictures : Fragment() {
+class PicturesFragment : Fragment() {
 
     private var _binding: FragmentPicturesBinding? = null
     private val binding get() = _binding!!

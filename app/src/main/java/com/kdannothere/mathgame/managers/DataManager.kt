@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kdannothere.mathgame.managers.LangManager.getLanguageCode
-import com.kdannothere.mathgame.presentation.util.Util
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -56,10 +55,7 @@ object DataManager {
     suspend fun loadLanguage(context: Context): String {
         return context.dataStore.data
             .map { preferences ->
-                preferences[languageSettingKey] ?: getLanguageCode(context).also { lang ->
-                    saveLanguage(context, lang)
-                    println("MyLog - firstSave - $lang")
-                }
+                preferences[languageSettingKey] ?: getLanguageCode(context)
             }
             .first()
     }
