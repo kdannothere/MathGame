@@ -88,8 +88,8 @@ class GameViewModel : ViewModel() {
 
             else -> {
                 message =
-                    getText(activity, R.string.wrong) +
-                            getText(activity, R.string.the_correct_answer_is) +
+                    getText(activity, R.string.wrong) + "\n" +
+                            getText(activity, R.string.the_correct_answer_is) + "\n" +
                             correctAnswer
                 results.addOneMistake(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))

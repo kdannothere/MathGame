@@ -56,8 +56,13 @@ android {
 }
 
 dependencies {
+
     //noinspection GradleDependency
     implementation("androidx.core:core-ktx:1.8.20")
+
+    val roomVersion = "2.6.0"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.activity:activity-ktx:1.8.0")
