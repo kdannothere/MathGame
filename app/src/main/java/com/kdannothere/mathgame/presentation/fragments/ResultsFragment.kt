@@ -1,6 +1,5 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentResultsBinding
-import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
@@ -64,6 +62,7 @@ class ResultsFragment : Fragment() {
                     viewModel.isSoundOn
                 )
                 viewModel.restartLevel()
+                viewModel.results.clear()
                 findNavController().navigate(R.id.action_results_to_game)
             }
 

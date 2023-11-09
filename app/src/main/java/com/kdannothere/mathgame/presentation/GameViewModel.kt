@@ -39,7 +39,7 @@ class GameViewModel : ViewModel() {
     private val _message = MutableSharedFlow<Message>()
     val message = _message.asSharedFlow()
 
-    private val _currentTask = MutableStateFlow(Task(0, "", "", ""))
+    private val _currentTask = MutableStateFlow(Task())
     val currentTask = _currentTask.asStateFlow()
 
     var currentLevel = 0
@@ -118,7 +118,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun updateCurrentTask(task: Task) {
-        viewModelScope.launch(MathApp.dispatcherIO) {
+        viewModelScope.launch {
             _currentTask.emit(task)
         }
     }

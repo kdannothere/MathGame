@@ -28,9 +28,10 @@
     <string name="button_go_back_to_all_levels">Кнопка повернутися до всіх рівнів</string>
     <string name="button_go_to_the_next_level">Кнопка перейти до наступного рівня</string>
     <string name="loading_went_wrong">Завантаження не вдалося…</string>
-    <string name="congratulations_the_level_is_passed">Congratulations! The level is passed :)</string>
+    <string name="congratulations_the_level_is_passed">Вітаю! Рівень завершено :)</string>
     <string name="correct_answer">Правильно :)</string>
     <string name="you_didn_t_write_anything">Нічого не написано. Просто пропусти якщо поки що не знаєш відповіді.</string>
     <string name="wrong">Не правильно :(</string>
     <string name="the_correct_answer_is">"Правильна відповідь: "</string>
+    <string name="launcher_image">Зображення іконки додатку</string>
 </resources>

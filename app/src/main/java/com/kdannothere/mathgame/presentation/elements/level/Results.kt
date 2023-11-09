@@ -10,10 +10,15 @@ class Results {
     val mistakes get() = mistakesTaskIdList.size
     val skipped get() = skippedTaskIdList.size
 
+    var lvl = 0
+    var operation = ""
+
     fun clear() {
         correctTaskIdList.clear()
         mistakesTaskIdList.clear()
         skippedTaskIdList.clear()
+        lvl = 0
+        operation = ""
     }
 
     fun addOneCorrect(taskId: Int) = correctTaskIdList.add(taskId)

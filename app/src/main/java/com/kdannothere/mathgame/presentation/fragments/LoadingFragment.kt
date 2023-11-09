@@ -46,7 +46,7 @@ class LoadingFragment : Fragment() {
                     return@onEach
                 }
                 false -> {
-                    delay(1000)
+                    delay(500)
                     findNavController().navigate(R.id.action_loading_to_menu)
                 }
             }

@@ -28,9 +28,10 @@
     <string name="button_go_back_to_all_levels">Button go back to all levels</string>
     <string name="button_go_to_the_next_level">Button go to the next level</string>
     <string name="loading_went_wrong">Loading went wrong…</string>
-    <string name="congratulations_the_level_is_passed">Congratulations! The level is passed :)</string>
+    <string name="congratulations_the_level_is_passed">Congratulations! The level is finished :)</string>
     <string name="correct_answer">Correct :)</string>
     <string name="you_didn_t_write_anything">You didn\'t write anything. Just skip if you don\'t know the answer currently.</string>
     <string name="wrong">Wrong :(</string>
     <string name="the_correct_answer_is">"The correct answer is: "</string>
+    <string name="launcher_image">Launcher image</string>
 </resources>
