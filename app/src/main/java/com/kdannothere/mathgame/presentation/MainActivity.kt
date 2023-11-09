@@ -3,11 +3,9 @@ package com.kdannothere.mathgame.presentation
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.ActivityMainBinding
-import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.managers.SoundManager
 
 class MainActivity : AppCompatActivity() {
@@ -18,12 +16,11 @@ class MainActivity : AppCompatActivity() {
     val musicPlayer: MediaPlayer by lazy {
         MediaPlayer.create(this, SoundManager.musicResId)
     }
-    private val soundPlayer: MediaPlayer by lazy {
+    val soundPlayer: MediaPlayer by lazy {
         MediaPlayer()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        LangManager.setLanguage(this, lifecycleScope)
         super.onCreate(savedInstanceState)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,12 +37,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        SoundManager.pauseMusic(musicPlayer, lifecycleScope)
+        SoundManager.pauseMusic(this)
     }
 
     override fun onResume() {
         super.onResume()
-        SoundManager.playMusic(musicPlayer, applicationContext, lifecycleScope)
+        SoundManager.playMusic(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

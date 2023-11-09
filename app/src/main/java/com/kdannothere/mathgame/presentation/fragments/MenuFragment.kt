@@ -1,6 +1,5 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentMenuBinding
-import com.kdannothere.mathgame.managers.LangManager
+import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.MainActivity
 import kotlin.system.exitProcess
 
 class MenuFragment : Fragment() {
@@ -54,21 +54,38 @@ class MenuFragment : Fragment() {
 
     private fun setClickListeners() {
         binding.apply {
-            buttonPlay.setOnClickListener { findNavController().navigate(R.id.action_menu_to_topics) }
-            buttonPictures.setOnClickListener { findNavController().navigate(R.id.action_menu_to_pictures) }
-            buttonSettings.setOnClickListener { findNavController().navigate(R.id.action_menu_to_settings) }
+            buttonPlay.setOnClickListener {
+                findNavController().navigate(R.id.action_menu_to_topics)
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+            }
+            buttonPictures.setOnClickListener {
+                findNavController().navigate(R.id.action_menu_to_pictures)
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+            }
+            buttonSettings.setOnClickListener {
+                findNavController().navigate(R.id.action_menu_to_settings)
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+            }
         }
     }
 
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+            val activity = requireActivity() as MainActivity
 
-            buttonPlay.text = localizedContext.getString(R.string.button_play_text)
-            buttonPictures.text = localizedContext.getString(R.string.pictures)
-            buttonSettings.text = localizedContext.getString(R.string.button_settings_text)
+            buttonPlay.text = viewModel.getText(activity, R.string.button_play_text)
+            buttonPictures.text = viewModel.getText(activity, R.string.pictures)
+            buttonSettings.text = viewModel.getText(activity, R.string.button_settings_text)
         }
     }
 }

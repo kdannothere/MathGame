@@ -1,6 +1,5 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentLevelsBinding
-import com.kdannothere.mathgame.managers.LangManager
-import com.kdannothere.mathgame.presentation.elements.level.LevelAdapter
+import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.MainActivity
+import com.kdannothere.mathgame.presentation.elements.level.LevelAdapter
 
 class LevelsFragment : Fragment() {
 
@@ -30,8 +30,12 @@ class LevelsFragment : Fragment() {
         levelAdapter = LevelAdapter(viewModel.levelList
         ) { level ->
             viewModel.apply {
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
                 updateTaskList(level.id)
-                currentLevelId = level.id
+                currentLevel = level.id
             }
             findNavController().navigate(R.id.action_levels_to_game)
         }
@@ -53,10 +57,9 @@ class LevelsFragment : Fragment() {
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+            val activity = requireActivity() as MainActivity
 
-            titleLevels.text = localizedContext.getString(R.string.title_levels)
+            titleLevels.text = viewModel.getText(activity, R.string.title_levels)
         }
     }
 }

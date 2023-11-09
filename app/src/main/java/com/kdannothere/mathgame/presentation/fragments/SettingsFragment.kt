@@ -1,6 +1,5 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentSettingsBinding
 import com.kdannothere.mathgame.managers.DataManager
-import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
-import com.kdannothere.mathgame.presentation.GameViewModel
 import kotlinx.coroutines.launch
 
 
@@ -52,37 +50,46 @@ class SettingsFragment : Fragment() {
     private fun setClickListeners() {
         binding.apply {
             musicValue.setOnClickListener {
-                musicValue.isChecked = !viewModel.isMusicOn
-                viewModel.isMusicOn = musicValue.isChecked
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+
+                val newValue = !viewModel.isMusicOn
+                musicValue.isChecked = newValue
+                viewModel.isMusicOn = newValue
                 lifecycleScope.launch(MathApp.dispatcherIO) {
-                    DataManager.saveMusicSetting(requireContext(), viewModel.isMusicOn)
-                    when (viewModel.isMusicOn) {
+                    DataManager.saveMusicSetting(requireContext(), newValue)
+                    when (newValue) {
                         true -> {
-                            SoundManager.playMusic(
-                                mediaPlayer = (activity as MainActivity).musicPlayer,
-                                requireContext(),
-                                lifecycleScope
-                            )
+                            SoundManager.playMusic(requireActivity() as MainActivity)
                         }
 
                         false -> {
-                            SoundManager.pauseMusic(
-                                mediaPlayer = (activity as MainActivity).musicPlayer,
-                                lifecycleScope
-                            )
+                            SoundManager.pauseMusic(requireActivity() as MainActivity)
                         }
                     }
 
                 }
             }
             soundValue.setOnClickListener {
-                musicValue.isChecked = !viewModel.isSoundOn
-                viewModel.isSoundOn = soundValue.isChecked
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+
+                val newValue = !viewModel.isSoundOn
+                soundValue.isChecked = newValue
+                viewModel.isSoundOn = newValue
                 lifecycleScope.launch(MathApp.dispatcherIO) {
-                    DataManager.saveSoundSetting(requireContext(), viewModel.isSoundOn)
+                    DataManager.saveSoundSetting(requireContext(), newValue)
                 }
             }
             languageValue.setOnClickListener {
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
                 viewModel.changeLanguage(requireContext())
                 setText()
             }
@@ -92,14 +99,13 @@ class SettingsFragment : Fragment() {
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+            val activity = requireActivity() as MainActivity
 
-            titleSettings.text = localizedContext.getString(R.string.button_settings_text)
-            music.text = localizedContext.getString(R.string.music)
-            sound.text = localizedContext.getString(R.string.sounds)
-            language.text = localizedContext.getString(R.string.language)
-            languageValue.text = localizedContext.getString(R.string.language_current)
+            titleSettings.text = viewModel.getText(activity, R.string.button_settings_text)
+            music.text = viewModel.getText(activity, R.string.music)
+            sound.text = viewModel.getText(activity, R.string.sounds)
+            language.text = viewModel.getText(activity, R.string.language)
+            languageValue.text = viewModel.getText(activity, R.string.language_current)
         }
     }
 }

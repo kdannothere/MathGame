@@ -1,10 +1,9 @@
 package com.kdannothere.mathgame.managers
 
-import android.content.Context
-import android.media.MediaPlayer
+import androidx.lifecycle.lifecycleScope
 import com.kdannothere.mathgame.R
+import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,66 +15,58 @@ object SoundManager {
     private val soundCorrectResId = R.raw.sound_correct
     private val soundWrongResId = R.raw.sound_wrong
 
-    fun playMusic(mediaPlayer: MediaPlayer, context: Context, scope: CoroutineScope) {
-        scope.launch(MathApp.dispatcherIO) {
-            val isMusicOn = async { DataManager.loadMusicSetting(context) }
-            if (!isMusicOn.await() || mediaPlayer.isPlaying) return@launch
+    fun playMusic(activity: MainActivity) {
+        activity.lifecycleScope.launch(MathApp.dispatcherIO) {
+            val isMusicOn = async { DataManager.loadMusicSetting(activity) }
+            if (!isMusicOn.await() || activity.musicPlayer.isPlaying) return@launch
             withContext(MathApp.dispatcherMain) {
-                mediaPlayer.isLooping = true
-                mediaPlayer.start()
+                activity.musicPlayer.isLooping = true
+                activity.musicPlayer.start()
             }
         }
     }
 
-    fun pauseMusic(mediaPlayer: MediaPlayer, scope: CoroutineScope) {
-        if (mediaPlayer.isPlaying) {
-            scope.launch(MathApp.dispatcherMain) {
-                mediaPlayer.pause()
+    fun pauseMusic(activity: MainActivity) {
+        if (activity.musicPlayer.isPlaying) {
+            activity.lifecycleScope.launch(MathApp.dispatcherMain) {
+                activity.musicPlayer.pause()
             }
         }
     }
 
     fun playSoundClick(
-        mediaPlayer: MediaPlayer,
-        context: Context,
-        scope: CoroutineScope,
+        activity: MainActivity,
         isSoundOn: Boolean,
-    ) = playSound(mediaPlayer, context, scope, isSoundOn, soundClickResId)
+    ) = playSound(activity, isSoundOn, soundClickResId)
 
     fun playSoundCorrect(
-        mediaPlayer: MediaPlayer,
-        context: Context,
-        scope: CoroutineScope,
+        activity: MainActivity,
         isSoundOn: Boolean,
-    ) = playSound(mediaPlayer, context, scope, isSoundOn, soundCorrectResId)
+    ) = playSound(activity, isSoundOn, soundCorrectResId)
 
     fun playSoundWrong(
-        mediaPlayer: MediaPlayer,
-        context: Context,
-        scope: CoroutineScope,
+        activity: MainActivity,
         isSoundOn: Boolean,
-    ) = playSound(mediaPlayer, context, scope, isSoundOn, soundWrongResId)
+    ) = playSound(activity, isSoundOn, soundWrongResId)
 
     private fun playSound(
-        mediaPlayer: MediaPlayer,
-        context: Context,
-        scope: CoroutineScope,
+        activity: MainActivity,
         isSoundOn: Boolean,
         rawResId: Int,
     ) {
         if (!isSoundOn) return
-        scope.launch(MathApp.dispatcherIO) {
+        activity.lifecycleScope.launch(MathApp.dispatcherIO) {
             withContext(MathApp.dispatcherMain) {
                 val assetFileDescriptor =
-                    context.resources.openRawResourceFd(rawResId) ?: return@withContext
-                mediaPlayer.reset()
-                mediaPlayer.setDataSource(
+                    activity.resources.openRawResourceFd(rawResId) ?: return@withContext
+                activity.soundPlayer.reset()
+                activity.soundPlayer.setDataSource(
                     assetFileDescriptor.fileDescriptor,
                     assetFileDescriptor.startOffset,
                     assetFileDescriptor.length
                 )
                 assetFileDescriptor.close()
-                mediaPlayer.prepareAsync()
+                activity.soundPlayer.prepareAsync()
             }
         }
     }

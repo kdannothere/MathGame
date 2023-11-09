@@ -15,3 +15,5 @@ Key Features:
   4. User-Friendly Interface: Our app is designed with kids in mind. The interface is easy to navigate, colorful, and exciting.
 
 With Math Master, learning math becomes a fun and rewarding experience. Download our app today and start your journey to becoming a Math Master!
+
+<a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Freepik - Flaticon</a>

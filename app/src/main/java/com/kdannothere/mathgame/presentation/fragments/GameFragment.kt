@@ -13,9 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
 import com.kdannothere.mathgame.managers.LangManager
+import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.MainActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -48,7 +50,10 @@ class GameFragment : Fragment() {
                 closeDialog = { viewModel.closeDialog() },
                 event = {
                     when (message.dialogType) {
-                        DialogType.nextTaskDialog -> viewModel.showNextQuestion()
+                        DialogType.nextTaskDialog -> {
+                            viewModel.showNextQuestion(requireActivity() as MainActivity)
+                        }
+
                         else -> findNavController().navigate(R.id.action_game_to_results)
                     }
                 }
@@ -61,13 +66,34 @@ class GameFragment : Fragment() {
     private fun setClickListeners() {
         binding.apply {
             buttonCheck.setOnClickListener {
-                viewModel.check(
-                    userAnswer = binding.userAnswer.text.toString()
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
                 )
+
+                when (viewModel.check(
+                    requireActivity() as MainActivity,
+                    userAnswer = binding.userAnswer.text.toString()
+                )) {
+                    true -> SoundManager.playSoundCorrect(
+                        requireActivity() as MainActivity,
+                        viewModel.isSoundOn
+                    )
+
+                    false -> SoundManager.playSoundWrong(
+                        requireActivity() as MainActivity,
+                        viewModel.isSoundOn
+                    )
+                }
                 binding.userAnswer.setText("")
             }
             buttonSkip.setOnClickListener {
-                viewModel.skipCurrentTask()
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+
+                viewModel.skipCurrentTask(requireActivity() as MainActivity)
             }
         }
     }
@@ -78,14 +104,9 @@ class GameFragment : Fragment() {
     }
 
     private fun setText() {
+        val activity = requireActivity() as MainActivity
         binding.apply {
-
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
-
-            explanation.text = localizedContext.getString(R.string.solve_the_problem)
-            buttonCheck.text = localizedContext.getString(R.string.check)
-            buttonSkip.text = localizedContext.getString(R.string.skip)
+            explanation.text = viewModel.getText(activity, R.string.do_you_know_the_answer)
         }
     }
 }

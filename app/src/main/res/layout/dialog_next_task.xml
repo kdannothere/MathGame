@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:background="@color/white">
+    android:orientation="vertical">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/message_field"
@@ -31,9 +30,9 @@
         android:clickable="true"
         android:focusable="true"
         android:contentDescription="@string/go_to_the_next_question"
-        android:src="@drawable/arrow_right"
+        android:src="@drawable/next_task"
         app:layout_constraintDimensionRatio="2:1.4"
-        app:layout_constraintWidth_percent="0.3"
+        app:layout_constraintWidth_percent="0.4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_h45">

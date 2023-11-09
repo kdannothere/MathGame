@@ -1,6 +1,5 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentPicturesBinding
-import com.kdannothere.mathgame.managers.LangManager
-import com.kdannothere.mathgame.presentation.elements.picture.PictureAdapter
 import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.MainActivity
+import com.kdannothere.mathgame.presentation.elements.picture.PictureAdapter
 
 class PicturesFragment : Fragment() {
 
@@ -40,10 +39,9 @@ class PicturesFragment : Fragment() {
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+            val activity = requireActivity() as MainActivity
 
-            title.text = localizedContext.getString(R.string.your_pictures)
+            title.text = viewModel.getText(activity, R.string.your_pictures)
         }
     }
 }

@@ -13,6 +13,7 @@ import com.kdannothere.mathgame.databinding.FragmentLoadingBinding
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -27,7 +28,7 @@ class LoadingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        viewModel.loadSettings(activity as MainActivity)
+        viewModel.loadSettings(requireActivity() as MainActivity)
         _binding = FragmentLoadingBinding.inflate(inflater, container, false)
 
         viewModel.message.onEach { message ->
@@ -45,6 +46,7 @@ class LoadingFragment : Fragment() {
                     return@onEach
                 }
                 false -> {
+                    delay(1000)
                     findNavController().navigate(R.id.action_loading_to_menu)
                 }
             }

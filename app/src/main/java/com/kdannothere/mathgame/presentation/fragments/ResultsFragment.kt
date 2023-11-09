@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentResultsBinding
 import com.kdannothere.mathgame.managers.LangManager
+import com.kdannothere.mathgame.managers.SoundManager
 import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.MainActivity
 
 class ResultsFragment : Fragment() {
 
@@ -49,19 +51,36 @@ class ResultsFragment : Fragment() {
 
             // Analogous to when the user presses the system Back button
             buttonAllLevels.setOnClickListener {
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
                 findNavController().popBackStack()
             }
 
+            buttonRestart.setOnClickListener {
+                SoundManager.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+                viewModel.restartLevel()
+                findNavController().navigate(R.id.action_results_to_game)
+            }
+
             buttonNextLevel.apply {
-                when (viewModel.levelList.last().id == viewModel.currentLevelId) { // is last level?
+                when (viewModel.isLastLevel()) {
                      true -> {
                          // hide button
                         visibility = View.GONE
                     }
                     false -> {
                         setOnClickListener {
-                            ++viewModel.currentLevelId
-                            viewModel.updateTaskList(viewModel.currentLevelId)
+                            SoundManager.playSoundClick(
+                                requireActivity() as MainActivity,
+                                viewModel.isSoundOn
+                            )
+                            ++viewModel.currentLevel
+                            viewModel.updateTaskList(viewModel.currentLevel)
                             viewModel.results.clear()
                             findNavController().navigate(R.id.action_results_to_game)
                         }
@@ -74,15 +93,12 @@ class ResultsFragment : Fragment() {
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
+            val activity = requireActivity() as MainActivity
 
-            titleResults.text = localizedContext.getString(R.string.title_results)
-            correct.text = localizedContext.getString(R.string.correct)
-            mistakes.text = localizedContext.getString(R.string.mistakes)
-            skipped.text = localizedContext.getString(R.string.skipped)
-            titleAllLevels.text = localizedContext.getString(R.string.all_levels)
-            titleNextLevel.text = localizedContext.getString(R.string.next_level)
+            titleResults.text = viewModel.getText(activity, R.string.title_results)
+            correct.text = viewModel.getText(activity, R.string.correct)
+            mistakes.text = viewModel.getText(activity, R.string.mistakes)
+            skipped.text = viewModel.getText(activity, R.string.skipped)
         }
     }
 }

@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">MathGame</string>
-    <string name="solve_the_problem">Solve the problem</string>
+    <string name="do_you_know_the_answer">Do you know the answer?</string>
     <string name="your_pictures">Your pictures</string>
-    <string name="check">Check</string>
     <string name="ok">OK</string>
     <string name="pictures">Pictures</string>
     <string name="picture">Picture</string>
@@ -19,15 +18,19 @@
     <string name="correct">Correct:</string>
     <string name="mistakes">Mistakes:</string>
     <string name="skipped">Skipped:</string>
-    <string name="next_level">Next level</string>
-    <string name="all_levels">All levels</string>
     <string name="go_to_the_next_question">Go to the next question</string>
     <string name="show_results">Show results</string>
-    <string name="skip">Skip</string>
     <string name="music">Music</string>
     <string name="sounds">Sounds</string>
     <string name="language">Language:</string>
     <string name="language_current">english</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_restart">Button repeat level</string>
+    <string name="button_go_back_to_all_levels">Button go back to all levels</string>
+    <string name="button_go_to_the_next_level">Button go to the next level</string>
+    <string name="loading_went_wrong">Loading went wrong…</string>
+    <string name="congratulations_the_level_is_passed">Congratulations! The level is passed :)</string>
+    <string name="correct_answer">Correct :)</string>
+    <string name="you_didn_t_write_anything">You didn\'t write anything. Just skip if you don\'t know the answer currently.</string>
+    <string name="wrong">Wrong :(</string>
+    <string name="the_correct_answer_is">"The correct answer is: "</string>
 </resources>

@@ -65,6 +65,10 @@
             android:id="@+id/action_results_to_game"
             app:destination="@id/game"
             app:popUpTo="@id/levels" />
+        <action
+            android:id="@+id/action_results_to_game2"
+            app:destination="@id/game"
+            app:popUpTo="@id/levels" />
     </fragment>
     <fragment
         android:id="@+id/loading"
