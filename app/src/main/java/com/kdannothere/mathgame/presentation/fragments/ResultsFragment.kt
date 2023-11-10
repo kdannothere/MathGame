@@ -38,9 +38,9 @@ class ResultsFragment : Fragment() {
 
     private fun setData() {
         binding.apply {
-            correctValue.text = viewModel.results.correct.toString()
-            mistakesValue.text = viewModel.results.mistakes.toString()
-            skippedValue.text = viewModel.results.skipped.toString()
+            correctValue.text = viewModel.result.correct.toString()
+            mistakesValue.text = viewModel.result.mistakes.toString()
+            skippedValue.text = viewModel.result.skipped.toString()
         }
     }
 
@@ -62,7 +62,7 @@ class ResultsFragment : Fragment() {
                     viewModel.isSoundOn
                 )
                 viewModel.restartLevel()
-                viewModel.results.clear()
+                viewModel.result.clear()
                 findNavController().navigate(R.id.action_results_to_game)
             }
 
@@ -80,7 +80,7 @@ class ResultsFragment : Fragment() {
                             )
                             ++viewModel.currentLevel
                             viewModel.updateTaskList(viewModel.currentLevel)
-                            viewModel.results.clear()
+                            viewModel.result.clear()
                             findNavController().navigate(R.id.action_results_to_game)
                         }
                     }

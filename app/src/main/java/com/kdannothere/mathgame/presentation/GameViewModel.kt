@@ -12,7 +12,7 @@ import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.elements.dialog.Message
 import com.kdannothere.mathgame.presentation.elements.level.Level
 import com.kdannothere.mathgame.presentation.elements.level.LevelGenerator
-import com.kdannothere.mathgame.presentation.elements.level.Results
+import com.kdannothere.mathgame.data.Result
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
 import com.kdannothere.mathgame.presentation.util.basicLevelAmount
@@ -25,8 +25,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// add dialog on skip
 // fragment history
 // change image logic and design
+// tutorial
 
 class GameViewModel : ViewModel() {
 
@@ -34,7 +36,7 @@ class GameViewModel : ViewModel() {
     var taskList = mutableListOf<Task>()
     val pictureList = mutableListOf<Picture>()
 
-    val results = Results()
+    val result = Result()
 
     private val _message = MutableSharedFlow<Message>()
     val message = _message.asSharedFlow()
@@ -43,7 +45,9 @@ class GameViewModel : ViewModel() {
     val currentTask = _currentTask.asStateFlow()
 
     var currentLevel = 0
-    var currentOperation = ""
+
+    var topic = ""
+
     private var isDialogShowing = false
 
     private val _isLoading = MutableSharedFlow<Boolean>()
@@ -81,7 +85,7 @@ class GameViewModel : ViewModel() {
 
             isUserCorrect -> {
                 message = getText(activity, R.string.correct_answer)
-                results.addOneCorrect(getCurrentTaskId())
+                result.addOneCorrect(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
                 true
             }
@@ -91,7 +95,7 @@ class GameViewModel : ViewModel() {
                     getText(activity, R.string.wrong) + "\n" +
                             getText(activity, R.string.the_correct_answer_is) + "\n" +
                             correctAnswer
-                results.addOneMistake(getCurrentTaskId())
+                result.addOneMistake(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
                 false
             }
@@ -133,13 +137,22 @@ class GameViewModel : ViewModel() {
     }
 
     fun skipCurrentTask(activity: MainActivity, taskId: Int = getCurrentTaskId()) {
-        results.addOneSkipped(taskId)
+        result.addOneSkipped(taskId)
         showNextQuestion(activity)
+    }
+
+    fun restartLevel() {
+        levelList[currentLevel - 1] = LevelGenerator.getOneLevel(
+            lvl = currentLevel,
+            operation = currentTask.value.operation
+        )
+        updateTaskList(currentLevel)
     }
 
     fun isLastLevel(): Boolean = levelList.last().id == currentLevel
     private fun isLastTask(): Boolean = currentTask.value.id == taskList.last().id
     private fun getCurrentTaskId(): Int = currentTask.value.id
+
     fun closeDialog() = run { isDialogShowing = false }
 
     fun changeLanguage(context: Context) {
@@ -183,10 +196,4 @@ class GameViewModel : ViewModel() {
     fun getText(activity: MainActivity, stringResId: Int): String {
         return LangManager.getLocalizedContext(activity, languageCode).getString(stringResId)
     }
-
-    fun restartLevel() {
-        levelList[currentLevel - 1] = LevelGenerator.getOneLevel(currentLevel, currentOperation)
-        updateTaskList(currentLevel)
-    }
-
 }

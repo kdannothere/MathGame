@@ -4,8 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
+import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.util.englishLanguageCode
+import com.kdannothere.mathgame.presentation.util.topicAddition
+import com.kdannothere.mathgame.presentation.util.topicDivision
+import com.kdannothere.mathgame.presentation.util.topicMultiplication
+import com.kdannothere.mathgame.presentation.util.topicSubtraction
 import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -47,6 +52,16 @@ object LangManager {
         return when (val language = locale.language) {
             in appLanguages -> language
             else -> englishLanguageCode
+        }
+    }
+
+    fun getTopicResId(topic: String): Int {
+        return when (topic) {
+            topicAddition -> R.string.addition
+            topicSubtraction -> R.string.subtraction
+            topicMultiplication -> R.string.multiplication
+            topicDivision -> R.string.division
+            else -> 0
         }
     }
 }

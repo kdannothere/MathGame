@@ -46,7 +46,7 @@ class LevelsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.results.clear()
+        viewModel.result.clear()
     }
 
     override fun onDestroyView() {

@@ -7,10 +7,10 @@
     <string name="picture">Picture</string>
     <string name="button_play_text">Play</string>
     <string name="button_settings_text">Settings</string>
-    <string name="title_addition">Addition (+)</string>
-    <string name="title_subtraction">Subtraction (-)</string>
-    <string name="title_multiplication">Multiplication (x)</string>
-    <string name="title_division">Division (÷)</string>
+    <string name="addition">Addition (+)</string>
+    <string name="subtraction">Subtraction (-)</string>
+    <string name="multiplication">Multiplication (x)</string>
+    <string name="division">Division (÷)</string>
     <string name="title_topics">Topics</string>
     <string name="title_levels">Levels</string>
     <string name="go_to_the_next_task">Go to the next task</string>

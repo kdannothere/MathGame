@@ -16,6 +16,10 @@ import com.kdannothere.mathgame.presentation.util.operationAddition
 import com.kdannothere.mathgame.presentation.util.operationDivision
 import com.kdannothere.mathgame.presentation.util.operationMultiplication
 import com.kdannothere.mathgame.presentation.util.operationSubtraction
+import com.kdannothere.mathgame.presentation.util.topicAddition
+import com.kdannothere.mathgame.presentation.util.topicDivision
+import com.kdannothere.mathgame.presentation.util.topicMultiplication
+import com.kdannothere.mathgame.presentation.util.topicSubtraction
 
 class TopicsFragment : Fragment() {
 
@@ -46,7 +50,7 @@ class TopicsFragment : Fragment() {
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
-                viewModel.currentOperation = operationAddition
+                viewModel.topic = topicAddition
                 viewModel.createLevelList(operationAddition)
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
@@ -55,7 +59,7 @@ class TopicsFragment : Fragment() {
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
-                viewModel.currentOperation = operationSubtraction
+                viewModel.topic = topicSubtraction
                 viewModel.createLevelList(operationSubtraction)
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
@@ -64,7 +68,7 @@ class TopicsFragment : Fragment() {
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
-                viewModel.currentOperation = operationMultiplication
+                viewModel.topic = topicMultiplication
                 viewModel.createLevelList(operationMultiplication)
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
@@ -73,7 +77,7 @@ class TopicsFragment : Fragment() {
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
-                viewModel.currentOperation = operationDivision
+                viewModel.topic = topicDivision
                 viewModel.createLevelList(operationDivision)
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
@@ -86,10 +90,10 @@ class TopicsFragment : Fragment() {
             val activity = requireActivity() as MainActivity
 
             titleTopics.text = viewModel.getText(activity, R.string.title_topics)
-            buttonAddition.text = viewModel.getText(activity, R.string.title_addition)
-            buttonSubtraction.text = viewModel.getText(activity, R.string.title_subtraction)
-            buttonMultiplication.text = viewModel.getText(activity, R.string.title_multiplication)
-            buttonDivision.text = viewModel.getText(activity, R.string.title_division)
+            buttonAddition.text = viewModel.getText(activity, R.string.addition)
+            buttonSubtraction.text = viewModel.getText(activity, R.string.subtraction)
+            buttonMultiplication.text = viewModel.getText(activity, R.string.multiplication)
+            buttonDivision.text = viewModel.getText(activity, R.string.division)
         }
     }
 }

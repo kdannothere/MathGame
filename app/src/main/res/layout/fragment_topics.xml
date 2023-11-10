@@ -39,7 +39,7 @@
             android:shadowColor="@color/green"
             android:shadowRadius="40"
             android:singleLine="true"
-            android:text="@string/title_addition"
+            android:text="@string/addition"
             android:textColor="@color/black"
             android:textSize="40sp" />
 
@@ -54,7 +54,7 @@
             android:shadowColor="@color/red"
             android:shadowRadius="40"
             android:singleLine="true"
-            android:text="@string/title_subtraction"
+            android:text="@string/subtraction"
             android:textColor="@color/black"
             android:textSize="40sp" />
 
@@ -69,7 +69,7 @@
             android:shadowColor="@color/blue"
             android:shadowRadius="40"
             android:singleLine="true"
-            android:text="@string/title_multiplication"
+            android:text="@string/multiplication"
             android:textColor="@color/black"
             android:textSize="40sp" />
 
@@ -84,7 +84,7 @@
             android:shadowColor="@color/orange"
             android:shadowRadius="40"
             android:singleLine="true"
-            android:text="@string/title_division"
+            android:text="@string/division"
             android:textColor="@color/black"
             android:textSize="40sp" />
     </LinearLayout>

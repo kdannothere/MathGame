@@ -7,10 +7,10 @@
     <string name="picture">Картинка</string>
     <string name="button_play_text">Грати</string>
     <string name="button_settings_text">Налаштування</string>
-    <string name="title_addition">Додавання (+)</string>
-    <string name="title_subtraction">Віднімання (-)</string>
-    <string name="title_multiplication">Множення (x)</string>
-    <string name="title_division">Ділення (÷)</string>
+    <string name="addition">Додавання (+)</string>
+    <string name="subtraction">Віднімання (-)</string>
+    <string name="multiplication">Множення (x)</string>
+    <string name="division">Ділення (÷)</string>
     <string name="title_topics">Теми</string>
     <string name="title_levels">Рівні</string>
     <string name="go_to_the_next_task">Перейти до наступного завдання</string>
