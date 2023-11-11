@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentMenuBinding
 import com.kdannothere.mathgame.presentation.managers.SoundMng
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import kotlin.system.exitProcess
 

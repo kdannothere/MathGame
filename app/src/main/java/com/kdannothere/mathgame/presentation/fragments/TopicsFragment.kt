@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentTopicsBinding
 import com.kdannothere.mathgame.presentation.managers.SoundMng
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.util.operationAddition
 import com.kdannothere.mathgame.presentation.util.operationDivision

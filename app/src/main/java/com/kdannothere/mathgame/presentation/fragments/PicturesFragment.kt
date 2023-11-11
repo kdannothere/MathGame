@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentPicturesBinding
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.elements.picture.PictureAdapter
 

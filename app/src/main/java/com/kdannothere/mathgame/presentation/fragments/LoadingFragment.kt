@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentLoadingBinding
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.managers.DialogMng
 import kotlinx.coroutines.delay

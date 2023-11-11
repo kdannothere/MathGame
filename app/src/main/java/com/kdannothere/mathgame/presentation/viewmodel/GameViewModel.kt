@@ -1,4 +1,4 @@
-package com.kdannothere.mathgame.presentation
+package com.kdannothere.mathgame.presentation.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -13,6 +13,9 @@ import com.kdannothere.mathgame.presentation.elements.dialog.Message
 import com.kdannothere.mathgame.presentation.elements.level.Level
 import com.kdannothere.mathgame.domain.LevelGenerator
 import com.kdannothere.mathgame.data.Result
+import com.kdannothere.mathgame.data.record.RecordRepository
+import com.kdannothere.mathgame.presentation.MainActivity
+import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
 import com.kdannothere.mathgame.presentation.util.basicLevelAmount
@@ -30,7 +33,7 @@ import kotlinx.coroutines.withContext
 // change image logic and design
 // tutorial
 
-class GameViewModel : ViewModel() {
+class GameViewModel(private val repository: RecordRepository) : ViewModel() {
 
     var levelList = mutableListOf<Level>()
     var taskList = mutableListOf<Task>()

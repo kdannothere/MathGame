@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kdannothere.mathgame.databinding.FragmentHistoryBinding
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 
 class HistoryFragment : Fragment() {
 

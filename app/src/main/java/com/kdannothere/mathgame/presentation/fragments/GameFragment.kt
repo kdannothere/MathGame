@@ -14,7 +14,7 @@ import com.kdannothere.mathgame.databinding.FragmentGameBinding
 import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.managers.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

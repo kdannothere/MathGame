@@ -11,7 +11,7 @@ import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentSettingsBinding
 import com.kdannothere.mathgame.presentation.managers.DataMng
 import com.kdannothere.mathgame.presentation.managers.SoundMng
-import com.kdannothere.mathgame.presentation.GameViewModel
+import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
 import kotlinx.coroutines.launch
