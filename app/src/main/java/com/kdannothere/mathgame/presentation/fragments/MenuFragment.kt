@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentMenuBinding
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import kotlin.system.exitProcess
@@ -56,21 +56,21 @@ class MenuFragment : Fragment() {
         binding.apply {
             buttonPlay.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_to_topics)
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
             }
             buttonPictures.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_to_pictures)
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
             }
             buttonSettings.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_to_settings)
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )

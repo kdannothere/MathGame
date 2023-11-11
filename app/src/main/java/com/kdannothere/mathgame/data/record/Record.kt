@@ -7,7 +7,8 @@ import com.kdannothere.mathgame.data.AppDatabase
 
 @Entity(tableName = AppDatabase.tableRecords)
 data class Record(
-    @PrimaryKey val time: String,
+    @PrimaryKey val timeStamp: String,
+    @ColumnInfo val date: String,
     @ColumnInfo val topic: String,
     @ColumnInfo val level: String,
     @ColumnInfo val correct: String,

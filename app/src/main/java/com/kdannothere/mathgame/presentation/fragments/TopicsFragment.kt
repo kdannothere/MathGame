@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentTopicsBinding
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.util.operationAddition
@@ -46,7 +46,7 @@ class TopicsFragment : Fragment() {
     private fun setClickListeners() {
         binding.apply {
             buttonAddition.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -55,7 +55,7 @@ class TopicsFragment : Fragment() {
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
             buttonSubtraction.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -64,7 +64,7 @@ class TopicsFragment : Fragment() {
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
             buttonMultiplication.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -73,7 +73,7 @@ class TopicsFragment : Fragment() {
                 findNavController().navigate(R.id.action_topics_to_levels)
             }
             buttonDivision.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )

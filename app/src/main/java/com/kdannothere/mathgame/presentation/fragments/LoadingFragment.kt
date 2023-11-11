@@ -12,7 +12,7 @@ import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentLoadingBinding
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
-import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
+import com.kdannothere.mathgame.presentation.managers.DialogMng
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

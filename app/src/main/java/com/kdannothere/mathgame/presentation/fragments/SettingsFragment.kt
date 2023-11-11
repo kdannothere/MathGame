@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentSettingsBinding
-import com.kdannothere.mathgame.managers.DataManager
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.DataMng
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
@@ -50,7 +50,7 @@ class SettingsFragment : Fragment() {
     private fun setClickListeners() {
         binding.apply {
             musicValue.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -59,21 +59,21 @@ class SettingsFragment : Fragment() {
                 musicValue.isChecked = newValue
                 viewModel.isMusicOn = newValue
                 lifecycleScope.launch(MathApp.dispatcherIO) {
-                    DataManager.saveMusicSetting(requireContext(), newValue)
+                    DataMng.saveMusicSetting(requireContext(), newValue)
                     when (newValue) {
                         true -> {
-                            SoundManager.playMusic(requireActivity() as MainActivity)
+                            SoundMng.playMusic(requireActivity() as MainActivity)
                         }
 
                         false -> {
-                            SoundManager.pauseMusic(requireActivity() as MainActivity)
+                            SoundMng.pauseMusic(requireActivity() as MainActivity)
                         }
                     }
 
                 }
             }
             soundValue.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -82,11 +82,11 @@ class SettingsFragment : Fragment() {
                 soundValue.isChecked = newValue
                 viewModel.isSoundOn = newValue
                 lifecycleScope.launch(MathApp.dispatcherIO) {
-                    DataManager.saveSoundSetting(requireContext(), newValue)
+                    DataMng.saveSoundSetting(requireContext(), newValue)
                 }
             }
             languageValue.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )

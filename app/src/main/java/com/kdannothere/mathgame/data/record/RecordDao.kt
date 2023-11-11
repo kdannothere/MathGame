@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.kdannothere.mathgame.data.AppDatabase
 
 @Dao
 interface RecordDao {
@@ -15,6 +14,6 @@ interface RecordDao {
     @Delete
     suspend fun deleteRecord(record: Record)
 
-    @Query("SELECT * FROM ${AppDatabase.tableRecords}")
-    suspend fun getRecords(): List<Record>
+    @Query("SELECT * FROM Records WHERE date BETWEEN :from AND :to")
+    suspend fun getRecordsBetweenTwoDates(from: String, to: String): List<Record>
 }

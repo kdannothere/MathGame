@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.ActivityMainBinding
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     val musicPlayer: MediaPlayer by lazy {
-        MediaPlayer.create(this, SoundManager.musicResId)
+        MediaPlayer.create(this, SoundMng.musicResId)
     }
     val soundPlayer: MediaPlayer by lazy {
         MediaPlayer()
@@ -37,12 +37,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        SoundManager.pauseMusic(this)
+        SoundMng.pauseMusic(this)
     }
 
     override fun onResume() {
         super.onResume()
-        SoundManager.playMusic(this)
+        SoundMng.playMusic(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

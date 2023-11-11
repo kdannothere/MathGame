@@ -1,7 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
-import com.kdannothere.mathgame.managers.LangManager
-import com.kdannothere.mathgame.managers.SoundManager
-import com.kdannothere.mathgame.presentation.elements.dialog.DialogMng
+import com.kdannothere.mathgame.presentation.managers.SoundMng
+import com.kdannothere.mathgame.presentation.managers.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
@@ -66,7 +64,7 @@ class GameFragment : Fragment() {
     private fun setClickListeners() {
         binding.apply {
             buttonCheck.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -75,12 +73,12 @@ class GameFragment : Fragment() {
                     requireActivity() as MainActivity,
                     userAnswer = binding.userAnswer.text.toString()
                 )) {
-                    true -> SoundManager.playSoundCorrect(
+                    true -> SoundMng.playSoundCorrect(
                         requireActivity() as MainActivity,
                         viewModel.isSoundOn
                     )
 
-                    false -> SoundManager.playSoundWrong(
+                    false -> SoundMng.playSoundWrong(
                         requireActivity() as MainActivity,
                         viewModel.isSoundOn
                     )
@@ -88,7 +86,7 @@ class GameFragment : Fragment() {
                 binding.userAnswer.setText("")
             }
             buttonSkip.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )

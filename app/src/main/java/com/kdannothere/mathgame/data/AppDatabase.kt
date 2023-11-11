@@ -18,7 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getRecordDao(): RecordDao
 
     companion object {
-        private const val dbName = "app_database"
+        private const val dbName = "game_database"
         const val tableRecords = "records"
 
         @Volatile

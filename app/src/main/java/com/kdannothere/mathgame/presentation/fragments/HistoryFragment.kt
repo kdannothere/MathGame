@@ -1,15 +1,12 @@
 package com.kdannothere.mathgame.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentHistoryBinding
-import com.kdannothere.mathgame.managers.LangManager
 import com.kdannothere.mathgame.presentation.GameViewModel
 
 class HistoryFragment : Fragment() {
@@ -39,10 +36,7 @@ class HistoryFragment : Fragment() {
     private fun setText() {
         binding.apply {
 
-            val localizedContext: Context =
-                LangManager.getLocalizedContext(requireContext(), viewModel.languageCode)
-
-            //explanation.text = localizedContext.getString(R.string.solve_the_problem)
+            //explanation.text = viewModel.getText(requireActivity(), R.string.solve_the_problem)
         }
     }
 }

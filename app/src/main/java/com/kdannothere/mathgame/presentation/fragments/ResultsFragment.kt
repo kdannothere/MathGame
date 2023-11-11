@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentResultsBinding
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 
@@ -49,7 +49,7 @@ class ResultsFragment : Fragment() {
 
             // Analogous to when the user presses the system Back button
             buttonAllLevels.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -57,7 +57,7 @@ class ResultsFragment : Fragment() {
             }
 
             buttonRestart.setOnClickListener {
-                SoundManager.playSoundClick(
+                SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
@@ -74,7 +74,7 @@ class ResultsFragment : Fragment() {
                     }
                     false -> {
                         setOnClickListener {
-                            SoundManager.playSoundClick(
+                            SoundMng.playSoundClick(
                                 requireActivity() as MainActivity,
                                 viewModel.isSoundOn
                             )

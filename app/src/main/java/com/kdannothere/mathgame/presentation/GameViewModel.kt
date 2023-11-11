@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.presentation.util.englishLanguageCode
-import com.kdannothere.mathgame.managers.DataManager
-import com.kdannothere.mathgame.managers.LangManager
-import com.kdannothere.mathgame.managers.SoundManager
+import com.kdannothere.mathgame.presentation.managers.DataMng
+import com.kdannothere.mathgame.presentation.managers.LangMng
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.elements.dialog.Message
 import com.kdannothere.mathgame.presentation.elements.level.Level
-import com.kdannothere.mathgame.presentation.elements.level.LevelGenerator
+import com.kdannothere.mathgame.domain.LevelGenerator
 import com.kdannothere.mathgame.data.Result
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
@@ -85,8 +85,8 @@ class GameViewModel : ViewModel() {
 
             isUserCorrect -> {
                 message = getText(activity, R.string.correct_answer)
-                result.addOneCorrect(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
+                result.addOneCorrect(getCurrentTaskId())
                 true
             }
 
@@ -95,8 +95,8 @@ class GameViewModel : ViewModel() {
                     getText(activity, R.string.wrong) + "\n" +
                             getText(activity, R.string.the_correct_answer_is) + "\n" +
                             correctAnswer
-                result.addOneMistake(getCurrentTaskId())
                 showNewMessage(Message(message, DialogType.nextTaskDialog))
+                result.addOneMistake(getCurrentTaskId())
                 false
             }
         }
@@ -162,22 +162,22 @@ class GameViewModel : ViewModel() {
             else -> englishLanguageCode
         }
         viewModelScope.launch(MathApp.dispatcherIO) {
-            DataManager.saveLanguage(context, languageCode)
+            DataMng.saveLanguage(context, languageCode)
         }
     }
 
     fun loadSettings(activity: MainActivity) {
         viewModelScope.launch(MathApp.dispatcherIO) {
             try {
-                val languageCode = async { DataManager.loadLanguage(activity) }
+                val languageCode = async { DataMng.loadLanguage(activity) }
                 this@GameViewModel.languageCode = languageCode.await()
-                val isMusicOn = async { DataManager.loadMusicSetting(activity) }
+                val isMusicOn = async { DataMng.loadMusicSetting(activity) }
                 this@GameViewModel.isMusicOn = isMusicOn.await()
-                val isSoundOn = async { DataManager.loadSoundSetting(activity) }
+                val isSoundOn = async { DataMng.loadSoundSetting(activity) }
                 this@GameViewModel.isSoundOn = isSoundOn.await()
                 withContext(MathApp.dispatcherMain) {
                     if (!isMusicOn.await()) {
-                        SoundManager.pauseMusic(activity)
+                        SoundMng.pauseMusic(activity)
                     }
                 }
                 _isLoading.emit(false)
@@ -194,6 +194,6 @@ class GameViewModel : ViewModel() {
     }
 
     fun getText(activity: MainActivity, stringResId: Int): String {
-        return LangManager.getLocalizedContext(activity, languageCode).getString(stringResId)
+        return LangMng.getLocalizedContext(activity, languageCode).getString(stringResId)
     }
 }
