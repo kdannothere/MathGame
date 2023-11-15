@@ -34,4 +34,7 @@
     <string name="wrong">Не правильно :(</string>
     <string name="the_correct_answer_is">"Правильна відповідь: "</string>
     <string name="launcher_image">Зображення іконки додатку</string>
+    <string name="time">Час:</string>
+    <string name="topic">Тема:</string>
+    <string name="level">Рівень:</string>
 </resources>

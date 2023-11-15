@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_topics"
+        android:textColor="@color/black"
         android:textSize="55sp"
         android:layout_marginTop="20dp"
         android:textAlignment="center"

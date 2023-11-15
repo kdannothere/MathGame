@@ -11,16 +11,6 @@ import java.util.Locale
 
 object Util {
 
-    private val dateTimeFormat: DateFormat =
-        DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
-
-    fun getFormattedDateTime(): String = dateTimeFormat.format(Date().time)
-
-    fun formatDate(date: Date): String {
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return format.format(date)
-    }
-
     fun hideSoftKeyboard(view: View, fragment: Fragment) {
         val inputMethodManager =
             fragment.activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

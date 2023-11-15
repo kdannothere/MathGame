@@ -1,19 +1,15 @@
 package com.kdannothere.mathgame.presentation.managers
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import com.kdannothere.mathgame.R
-import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.util.englishLanguageCode
 import com.kdannothere.mathgame.presentation.util.topicAddition
 import com.kdannothere.mathgame.presentation.util.topicDivision
 import com.kdannothere.mathgame.presentation.util.topicMultiplication
 import com.kdannothere.mathgame.presentation.util.topicSubtraction
 import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import java.util.Locale
 
 object LangMng {
@@ -27,19 +23,6 @@ object LangMng {
         val conf = Configuration(context.resources.configuration)
         conf.setLocale(Locale(lang))
         return context.createConfigurationContext(conf)
-    }
-
-    fun setLanguage(activity: Activity, scope: CoroutineScope) {
-        activity.apply {
-            scope.launch(MathApp.dispatcherMain) {
-                val lang = DataMng.loadLanguage(activity)
-                val locale = Locale(lang)
-                Locale.setDefault(locale)
-                val config = resources.configuration
-                config.setLocale(locale)
-                resources.configuration.updateFrom(config)
-            }
-        }
     }
 
     fun getLanguageCode(context: Context): String {

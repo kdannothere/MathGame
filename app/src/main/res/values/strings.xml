@@ -34,4 +34,7 @@
     <string name="wrong">Wrong :(</string>
     <string name="the_correct_answer_is">"The correct answer is: "</string>
     <string name="launcher_image">Launcher image</string>
+    <string name="time">Time:</string>
+    <string name="topic">Topic:</string>
+    <string name="level">Level:</string>
 </resources>

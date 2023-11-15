@@ -13,11 +13,13 @@ import com.kdannothere.mathgame.presentation.elements.dialog.Message
 import com.kdannothere.mathgame.presentation.elements.level.Level
 import com.kdannothere.mathgame.domain.LevelGenerator
 import com.kdannothere.mathgame.data.Result
+import com.kdannothere.mathgame.data.record.Record
 import com.kdannothere.mathgame.data.record.RecordRepository
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
 import com.kdannothere.mathgame.presentation.elements.level.Task
 import com.kdannothere.mathgame.presentation.elements.picture.Picture
+import com.kdannothere.mathgame.presentation.managers.TimeMng
 import com.kdannothere.mathgame.presentation.util.basicLevelAmount
 import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
 import kotlinx.coroutines.async
@@ -28,7 +30,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// add dialog on skip
 // fragment history
 // change image logic and design
 // tutorial
@@ -40,6 +41,12 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
     val pictureList = mutableListOf<Picture>()
 
     val result = Result()
+
+    var dateFrom = ""
+    var dateTo = ""
+
+    private val _records = MutableStateFlow<List<Record>>(emptyList())
+    val records = _records.asStateFlow()
 
     private val _message = MutableSharedFlow<Message>()
     val message = _message.asSharedFlow()
@@ -53,12 +60,18 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
 
     private var isDialogShowing = false
 
-    private val _isLoading = MutableSharedFlow<Boolean>()
-    val isLoading = _isLoading.asSharedFlow()
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
 
     var isMusicOn = false
     var isSoundOn = false
     var languageCode = "en"
+
+    fun updateRecords(from: String, to: String) {
+        viewModelScope.launch(MathApp.dispatcherIO) {
+            _records.emit(repository.getRecordsBetweenTwoDates(from, to))
+        }
+    }
 
     private fun addPicture() {
         pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
@@ -105,16 +118,34 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
         }
     }
 
+    private fun finishLevel(activity: MainActivity) {
+        showNewMessage(
+            Message(
+                getText(activity, R.string.congratulations_the_level_is_passed),
+                DialogType.endLevelDialog
+            )
+        )
+        viewModelScope.launch(MathApp.dispatcherIO) {
+            val currentResult = result
+            repository.upsertRecord(
+                Record(
+                    timeStamp = TimeMng.getCurrentTimeStamp(),
+                    date = TimeMng.formatDateDb(TimeMng.getCurrentDate()),
+                    topic = currentResult.topic,
+                    level = currentResult.level.toString(),
+                    correct = currentResult.correct.toString(),
+                    mistakes = currentResult.mistakes.toString(),
+                    skipped = currentResult.skipped.toString(),
+                )
+            )
+        }
+        //addPicture()
+    }
+
     fun showNextQuestion(activity: MainActivity) {
         when (isLastTask()) {
             true -> {
-                showNewMessage(
-                    Message(
-                        getText(activity, R.string.congratulations_the_level_is_passed),
-                        DialogType.endLevelDialog
-                    )
-                )
-                addPicture()
+                finishLevel(activity)
             }
 
             false -> {
@@ -137,6 +168,8 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
     fun updateTaskList(lvl: Int) {
         taskList = levelList[lvl - 1].taskList.toMutableList()
         updateCurrentTask(task = taskList.first())
+        result.level = lvl
+        result.topic = topic
     }
 
     fun skipCurrentTask(activity: MainActivity, taskId: Int = getCurrentTaskId()) {

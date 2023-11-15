@@ -61,8 +61,8 @@ class ResultsFragment : Fragment() {
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
                 )
-                viewModel.restartLevel()
                 viewModel.result.clear()
+                viewModel.restartLevel()
                 findNavController().navigate(R.id.action_results_to_game)
             }
 
@@ -79,8 +79,8 @@ class ResultsFragment : Fragment() {
                                 viewModel.isSoundOn
                             )
                             ++viewModel.currentLevel
-                            viewModel.updateTaskList(viewModel.currentLevel)
                             viewModel.result.clear()
+                            viewModel.updateTaskList(viewModel.currentLevel)
                             findNavController().navigate(R.id.action_results_to_game)
                         }
                     }

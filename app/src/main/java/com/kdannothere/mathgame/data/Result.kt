@@ -17,6 +17,8 @@ class Result {
         correctTaskIdList.clear()
         mistakesTaskIdList.clear()
         skippedTaskIdList.clear()
+        level = 0
+        topic = ""
     }
 
     fun addOneCorrect(taskId: Int) = correctTaskIdList.add(taskId)
