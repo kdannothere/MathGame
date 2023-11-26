@@ -18,6 +18,7 @@ Key Features:
   2. Progress Tracking: Keep track of your progress with our easy-to-understand progress reports.
   3. Rewards System: Earn points and badges as you learn. The more you practice, the more rewards you earn!
   4. User-Friendly Interface: Our app is designed with kids in mind. The interface is easy to navigate, colorful, and exciting.
+  5. Supports two languages: english, ukrainian.
 
 With Math Master, learning math becomes a fun and rewarding experience. Download our app today and start your journey to becoming a Math Master!
 
