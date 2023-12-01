@@ -13,7 +13,7 @@ import com.kdannothere.mathgame.data.record.RecordDao
     exportSchema = false
 )
 
-abstract class AppDatabase : RoomDatabase() {
+abstract class GameDatabase : RoomDatabase() {
 
     abstract fun getRecordDao(): RecordDao
 
@@ -22,9 +22,9 @@ abstract class AppDatabase : RoomDatabase() {
         const val tableRecords = "records"
 
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: GameDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): GameDatabase {
 
             val tempInstance = INSTANCE
             if (tempInstance != null) {
@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                    GameDatabase::class.java,
                     dbName
                 )
                     .build()

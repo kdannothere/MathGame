@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
-import com.kdannothere.mathgame.data.AppDatabase
+import com.kdannothere.mathgame.data.GameDatabase
 import com.kdannothere.mathgame.data.record.RecordRepository
 import com.kdannothere.mathgame.databinding.FragmentLoadingBinding
 import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
@@ -32,7 +32,7 @@ class LoadingFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         val activity = requireActivity()
-        val dao = AppDatabase.getDatabase(activity).getRecordDao()
+        val dao = GameDatabase.getDatabase(activity).getRecordDao()
         val repository = RecordRepository(dao)
         val factory = GameViewModelFactory(repository)
 
