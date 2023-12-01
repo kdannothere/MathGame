@@ -3,6 +3,7 @@ package com.kdannothere.mathgame.presentation.managers
 import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textview.MaterialTextView
@@ -27,20 +28,22 @@ object DialogMng {
 
     private fun showBasicDialog(message: String, activity: Activity, closeDialog: () -> Unit) {
         val dialogLayout =
-            activity.layoutInflater.inflate(R.layout.dialog_basic, null)
+            activity.layoutInflater.inflate(R.layout.element_dialog, null)
 
         val builder = AlertDialog.Builder(activity)
         builder.setView(dialogLayout)
 
         val dialog = builder.create()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val messageField = dialogLayout.findViewById<MaterialTextView>(R.id.message_field)
 
         messageField.text = message
 
-        val button = dialogLayout.findViewById<ImageView>(R.id.button_ok)
+        val button = dialogLayout.findViewById<ImageView>(R.id.uni_button)
         button.setOnClickListener {
             dialog.dismiss()
         }
@@ -58,14 +61,23 @@ object DialogMng {
         showNextQuestion: () -> Unit,
     ) {
         val dialogLayout =
-            activity.layoutInflater.inflate(R.layout.dialog_next_task, null)
+            activity.layoutInflater.inflate(R.layout.element_dialog, null)
+
         val builder = AlertDialog.Builder(activity)
         builder.setView(dialogLayout)
+
         val dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         val messageField = dialogLayout.findViewById<MaterialTextView>(R.id.message_field)
         messageField.text = message
-        val button = dialogLayout.findViewById<ImageView>(R.id.next_task)
+
+        val button = dialogLayout.findViewById<ImageView>(R.id.uni_button)
+        button.setImageResource(R.drawable.next_task)
+
         button.setOnClickListener {
             dialog.dismiss()
         }
@@ -85,14 +97,23 @@ object DialogMng {
         showResults: () -> Unit,
     ) {
         val dialogLayout =
-            activity.layoutInflater.inflate(R.layout.dialog_basic, null)
+            activity.layoutInflater.inflate(R.layout.element_dialog, null)
+
         val builder = AlertDialog.Builder(activity)
+
         builder.setView(dialogLayout)
+
         val dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val window = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         val messageField = dialogLayout.findViewById<MaterialTextView>(R.id.message_field)
         messageField.text = message
-        val button = dialogLayout.findViewById<ImageView>(R.id.button_ok)
+
+        val button: ImageView = dialogLayout.findViewById(R.id.uni_button)
+        button.setImageResource(R.drawable.next_level)
 
         button.setOnClickListener {
             dialog.dismiss()
