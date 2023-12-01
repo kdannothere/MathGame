@@ -14,8 +14,8 @@
             app:destination="@id/topics"
             app:popUpTo="@id/menu" />
         <action
-            android:id="@+id/action_menu_to_pictures"
-            app:destination="@id/pictures"
+            android:id="@+id/action_menu_to_history"
+            app:destination="@id/history"
             app:popUpTo="@id/menu" />
         <action
             android:id="@+id/action_menu_to_settings"
@@ -50,9 +50,9 @@
             app:popUpTo="@id/levels" />
     </fragment>
     <fragment
-        android:id="@+id/pictures"
-        android:name="com.kdannothere.mathgame.presentation.fragments.PicturesFragment"
-        tools:layout="@layout/fragment_pictures" />
+        android:id="@+id/history"
+        android:name="com.kdannothere.mathgame.presentation.fragments.HistoryFragment"
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/settings"
         android:name="com.kdannothere.mathgame.presentation.fragments.SettingsFragment"

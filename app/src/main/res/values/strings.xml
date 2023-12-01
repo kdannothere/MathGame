@@ -3,8 +3,7 @@
     <string name="do_you_know_the_answer">Do you know the answer?</string>
     <string name="your_pictures">Your pictures</string>
     <string name="ok">OK</string>
-    <string name="pictures">Pictures</string>
-    <string name="picture">Picture</string>
+    <string name="history">History</string>
     <string name="button_play_text">Play</string>
     <string name="button_settings_text">Settings</string>
     <string name="addition">Addition (+)</string>
@@ -30,7 +29,7 @@
     <string name="loading_went_wrong">Loading went wrong…</string>
     <string name="congratulations_the_level_is_passed">Congratulations!\nThe level is finished :)</string>
     <string name="correct_answer">Correct :)</string>
-    <string name="you_didn_t_write_anything">You didn\'t write anything…</string>
+    <string name="you_did_not_write_anything">You didn\'t write anything…</string>
     <string name="wrong">Wrong :(</string>
     <string name="the_correct_answer_is">"The correct answer is: "</string>
     <string name="launcher_image">Launcher image</string>

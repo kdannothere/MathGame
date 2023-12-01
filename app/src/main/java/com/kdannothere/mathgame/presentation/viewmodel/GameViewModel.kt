@@ -4,23 +4,22 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kdannothere.mathgame.R
-import com.kdannothere.mathgame.presentation.util.englishLanguageCode
-import com.kdannothere.mathgame.presentation.managers.DataMng
-import com.kdannothere.mathgame.presentation.managers.LangMng
-import com.kdannothere.mathgame.presentation.managers.SoundMng
-import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
-import com.kdannothere.mathgame.presentation.elements.dialog.Message
-import com.kdannothere.mathgame.presentation.elements.level.Level
-import com.kdannothere.mathgame.domain.LevelGenerator
 import com.kdannothere.mathgame.data.Result
 import com.kdannothere.mathgame.data.record.Record
 import com.kdannothere.mathgame.data.record.RecordRepository
+import com.kdannothere.mathgame.domain.LevelGenerator
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.MathApp
+import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
+import com.kdannothere.mathgame.presentation.elements.dialog.Message
+import com.kdannothere.mathgame.presentation.elements.level.Level
 import com.kdannothere.mathgame.presentation.elements.level.Task
-import com.kdannothere.mathgame.presentation.elements.picture.Picture
+import com.kdannothere.mathgame.presentation.managers.DataMng
+import com.kdannothere.mathgame.presentation.managers.LangMng
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import com.kdannothere.mathgame.presentation.managers.TimeMng
 import com.kdannothere.mathgame.presentation.util.basicLevelAmount
+import com.kdannothere.mathgame.presentation.util.englishLanguageCode
 import com.kdannothere.mathgame.presentation.util.ukrainianLanguageCode
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -30,15 +29,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// fragment history
-// change image logic and design
-// tutorial
-
 class GameViewModel(private val repository: RecordRepository) : ViewModel() {
 
     var levelList = mutableListOf<Level>()
     var taskList = mutableListOf<Task>()
-    val pictureList = mutableListOf<Picture>()
 
     val result = Result()
 
@@ -73,10 +67,6 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
         }
     }
 
-    private fun addPicture() {
-        pictureList.add(Picture(id = pictureList.size + 1, resId = R.drawable.image_1_moon))
-    }
-
     private fun showNewMessage(newMessage: Message) {
         viewModelScope.launch {
             if (isDialogShowing) return@launch
@@ -94,7 +84,7 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
         val message: String
         return when {
             userAnswer.isBlank() -> {
-                message = getText(activity, R.string.you_didn_t_write_anything)
+                message = getText(activity, R.string.you_did_not_write_anything)
                 showNewMessage(Message(message, DialogType.basicDialog))
                 false
             }

@@ -61,8 +61,8 @@ class MenuFragment : Fragment() {
                     viewModel.isSoundOn
                 )
             }
-            buttonPictures.setOnClickListener {
-                findNavController().navigate(R.id.action_menu_to_pictures)
+            buttonHistory.setOnClickListener {
+                findNavController().navigate(R.id.action_menu_to_history)
                 SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
                     viewModel.isSoundOn
@@ -84,7 +84,7 @@ class MenuFragment : Fragment() {
             val activity = requireActivity() as MainActivity
 
             buttonPlay.text = viewModel.getText(activity, R.string.button_play_text)
-            buttonPictures.text = viewModel.getText(activity, R.string.pictures)
+            buttonHistory.text = viewModel.getText(activity, R.string.history)
             buttonSettings.text = viewModel.getText(activity, R.string.button_settings_text)
         }
     }

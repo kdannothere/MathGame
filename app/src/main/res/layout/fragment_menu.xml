@@ -30,7 +30,7 @@
             android:textColor="@color/black"
             android:textSize="40sp" />
         <TextView
-            android:id="@+id/button_pictures"
+            android:id="@+id/button_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -40,7 +40,7 @@
             android:focusable="true"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/pictures"
+            android:text="@string/history"
             android:textColor="@color/black"
             android:textSize="40sp" />
         <TextView
