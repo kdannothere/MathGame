@@ -1,9 +1,9 @@
 # Math Game - Elementary School Math Skills
 
-<img src="1.jpg" width="258">   <img src="2.jpg" width="258">
-<img src="3.jpg" width="258">   <img src="4.jpg" width="258">
-<img src="5.jpg" width="258">   <img src="6.jpg" width="258">
-<img src="7.jpg" width="258">   
+<img src="screenshots/1.jpg" width="258">   <img src="screenshots/2.jpg" width="258">
+<img src="screenshots/3.jpg" width="258">   <img src="screenshots/4.jpg" width="258">
+<img src="screenshots/5.jpg" width="258">   <img src="screenshots/6.jpg" width="258">
+<img src="screenshots/7.jpg" width="258">   
 
 Unleash the math whiz within! Master the four basic mathematical operations with Math Master.
 
