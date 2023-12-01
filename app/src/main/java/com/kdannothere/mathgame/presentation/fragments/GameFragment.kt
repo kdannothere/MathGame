@@ -11,11 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.databinding.FragmentGameBinding
-import com.kdannothere.mathgame.presentation.managers.SoundMng
-import com.kdannothere.mathgame.presentation.managers.DialogMng
 import com.kdannothere.mathgame.presentation.elements.dialog.DialogType
 import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
+import com.kdannothere.mathgame.presentation.managers.DialogMng
+import com.kdannothere.mathgame.presentation.managers.SoundMng
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
