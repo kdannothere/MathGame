@@ -1,5 +1,7 @@
 package com.kdannothere.mathgame.presentation.managers
 
+import android.app.Activity
+import android.app.DatePickerDialog
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -26,19 +28,47 @@ object TimeMng {
     fun getCurrentTimeStamp(): String = Date().time.toString()
     fun getCurrentDate(): Date = Date()
 
-    // rewrite
-    fun getDateToday(): String = formatDateDb(Date())
+    fun getDateToday(): String {
+        val newCalendar = Calendar.getInstance()
+        return formatDateDb(newCalendar.time)
+    }
 
-    fun getDateYesterday(calendar: Calendar): String {
+    fun getDateYesterday(): String {
+        val newCalendar = Calendar.getInstance()
+        newCalendar.add(Calendar.DAY_OF_YEAR, -1)
+        return formatDateDb(newCalendar.time)
+    }
+
+    fun getDateOneDayBefore(calendar: Calendar): String {
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         return formatDateDb(calendar.time)
     }
 
-    fun getStartOfToday(calendar: Calendar): String {
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
+    fun getDateOneDayAfter(calendar: Calendar): String {
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
         return formatDateDb(calendar.time)
+    }
+
+    fun showDialog(
+        calendar: Calendar,
+        activity: Activity,
+        changeDate: (newDate: String) -> Unit
+    ) {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            activity,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                changeDate(calendar.time.time.toString())
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
     }
 }

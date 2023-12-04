@@ -2,8 +2,10 @@ package com.kdannothere.mathgame.data.record
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.DeleteTable
 import androidx.room.Query
 import androidx.room.Upsert
+import com.kdannothere.mathgame.data.GameDatabase
 
 @Dao
 interface RecordDao {
@@ -14,6 +16,9 @@ interface RecordDao {
     @Delete
     suspend fun deleteRecord(record: Record)
 
-    @Query("SELECT * FROM Records WHERE date BETWEEN :from AND :to")
-    suspend fun getRecordsBetweenTwoDates(from: String, to: String): List<Record>
+    @Query("DELETE FROM Records")
+    suspend fun deleteAllRecords()
+
+    @Query("SELECT * FROM Records WHERE date = :date")
+    suspend fun getRecordsForDate(date: String): List<Record>
 }

@@ -36,8 +36,8 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
 
     val result = Result()
 
-    var dateFrom = ""
-    var dateTo = ""
+    private val _date = MutableStateFlow("")
+    val date = _date.asStateFlow()
 
     private val _records = MutableStateFlow<List<Record>>(emptyList())
     val records = _records.asStateFlow()
@@ -61,9 +61,15 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
     var isSoundOn = false
     var languageCode = "en"
 
-    fun updateRecords(from: String, to: String) {
+    fun changeDate(newDate: String) {
+        viewModelScope.launch {
+            _date.emit(newDate)
+        }
+    }
+
+    fun updateRecords() {
         viewModelScope.launch(MathApp.dispatcherIO) {
-            _records.emit(repository.getRecordsBetweenTwoDates(from, to))
+            _records.emit(repository.getRecordsFromDate(date.value))
         }
     }
 
@@ -109,6 +115,7 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
     }
 
     private fun finishLevel(activity: MainActivity) {
+        if (isDialogShowing) return
         showNewMessage(
             Message(
                 getText(activity, R.string.congratulations_the_level_is_passed),
@@ -129,7 +136,6 @@ class GameViewModel(private val repository: RecordRepository) : ViewModel() {
                 )
             )
         }
-        //addPicture()
     }
 
     fun showNextQuestion(activity: MainActivity) {

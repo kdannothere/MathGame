@@ -1,10 +1,12 @@
 package com.kdannothere.mathgame.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +18,7 @@ import com.kdannothere.mathgame.presentation.viewmodel.GameViewModel
 import com.kdannothere.mathgame.presentation.MainActivity
 import com.kdannothere.mathgame.presentation.managers.DialogMng
 import com.kdannothere.mathgame.presentation.managers.SoundMng
+import com.kdannothere.mathgame.presentation.util.Util
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -61,8 +64,22 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.userAnswer.postDelayed({
+            binding.userAnswer.let {
+                it.isFocusableInTouchMode = true
+                it.requestFocus()
+                val imm = it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }, 200)
+    }
+
     private fun setClickListeners() {
         binding.apply {
+
+
             buttonCheck.setOnClickListener {
                 SoundMng.playSoundClick(
                     requireActivity() as MainActivity,
@@ -93,6 +110,15 @@ class GameFragment : Fragment() {
 
                 viewModel.skipCurrentTask(requireActivity() as MainActivity)
             }
+
+            buttonAllLevels.setOnClickListener {
+                SoundMng.playSoundClick(
+                    requireActivity() as MainActivity,
+                    viewModel.isSoundOn
+                )
+                Util.hideSoftKeyboard(binding.userAnswer, this@GameFragment)
+                findNavController().popBackStack()
+            }
         }
     }
 
@@ -104,7 +130,7 @@ class GameFragment : Fragment() {
     private fun setText() {
         val activity = requireActivity() as MainActivity
         binding.apply {
-            explanation.text = viewModel.getText(activity, R.string.do_you_know_the_answer)
+            explanation.text = viewModel.getText(activity, R.string.task)
         }
     }
 }

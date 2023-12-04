@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MathGame</string>
-    <string name="do_you_know_the_answer">Do you know the answer?</string>
+    <string name="task">Task:</string>
     <string name="your_pictures">Your pictures</string>
     <string name="ok">OK</string>
     <string name="history">History</string>
@@ -29,11 +29,20 @@
     <string name="loading_went_wrong">Loading went wrong…</string>
     <string name="congratulations_the_level_is_passed">Congratulations!\nThe level is finished :)</string>
     <string name="correct_answer">Correct :)</string>
-    <string name="you_did_not_write_anything">You didn\'t write anything…</string>
+    <string name="you_did_not_write_anything">You did not write anything…</string>
     <string name="wrong">Wrong :(</string>
     <string name="the_correct_answer_is">"The correct answer is: "</string>
     <string name="launcher_image">Launcher image</string>
     <string name="time">Time:</string>
     <string name="topic">Topic:</string>
     <string name="level">Level:</string>
+    <string name="click_me">Click me</string>
+    <string name="choose_date">Choose date:</string>
+    <string name="day_after"><![CDATA[>>>]]></string>
+    <string name="day_before"><![CDATA[<<<]]></string>
+    <string name="open_calendar">Open calendar</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="button_check_your_answer">Check your answer</string>
+    <string name="your_answer">Your answer</string>
 </resources>

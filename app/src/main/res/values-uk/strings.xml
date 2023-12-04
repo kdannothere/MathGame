@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">MathGame</string>
-    <string name="do_you_know_the_answer">Чи ти знаєш відповідь?</string>
+    <string name="task">Завдання:</string>
     <string name="your_pictures">Твої картинки</string>
     <string name="ok">Добре</string>
     <string name="history">Історія</string>
-    <string name="picture">Картинка</string>
     <string name="button_play_text">Грати</string>
     <string name="button_settings_text">Налаштування</string>
     <string name="addition">Додавання (+)</string>
@@ -37,4 +36,13 @@
     <string name="time">Час:</string>
     <string name="topic">Тема:</string>
     <string name="level">Рівень:</string>
+    <string name="click_me">Натисни мене</string>
+    <string name="choose_date">Вибери дату:</string>
+    <string name="day_after"><![CDATA[>>>]]></string>
+    <string name="day_before"><![CDATA[<<<]]></string>
+    <string name="open_calendar">Відкрити календар</string>
+    <string name="today">Сьогодні</string>
+    <string name="yesterday">Вчора</string>
+    <string name="button_check_your_answer">Перевір свою відповідь</string>
+    <string name="your_answer">Відповідь</string>
 </resources>

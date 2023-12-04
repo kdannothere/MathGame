@@ -15,8 +15,8 @@ import java.util.Date
 class RecordAdapter(
     private var recordList: List<Record>,
     var localizedContext: Context? = null,
-) :
-    RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
+) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
+
     class RecordViewHolder(val binding: ElementRecordBinding) :
         RecyclerView.ViewHolder(binding.root)
 
