@@ -33,6 +33,7 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
+        binding.lvlValue.text = viewModel.currentLevel.toString()
         setText()
 
         setClickListeners()
