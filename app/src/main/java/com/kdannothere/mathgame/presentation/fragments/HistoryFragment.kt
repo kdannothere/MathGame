@@ -1,7 +1,6 @@
 package com.kdannothere.mathgame.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +47,16 @@ class HistoryFragment : Fragment() {
         )
         binding.records.adapter = recordAdapter
 
+        setClickListeners()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setInitialData()
+
         viewModel.date.onEach {
             viewModel.updateRecords()
             updateDateText()
@@ -56,12 +65,6 @@ class HistoryFragment : Fragment() {
         viewModel.records.onEach { list: List<Record> ->
             recordAdapter.updateData(list)
         }.launchIn(lifecycleScope)
-
-        setInitialData()
-
-        setClickListeners()
-
-        return binding.root
     }
 
     override fun onDestroyView() {
