@@ -20,13 +20,18 @@ object DialogMng {
         event: () -> Unit = {},
     ) {
         when (dialogType) {
-            DialogType.basicDialog -> showBasicDialog(message, activity, closeDialog)
+            DialogType.basicDialog -> showBasicDialog(message, activity, closeDialog, event)
             DialogType.nextTaskDialog -> showNextTaskDialog(message, activity, closeDialog, event)
             DialogType.endLevelDialog -> showEndLevelDialog(message, activity, closeDialog, event)
         }
     }
 
-    private fun showBasicDialog(message: String, activity: Activity, closeDialog: () -> Unit) {
+    private fun showBasicDialog(
+        message: String,
+        activity: Activity,
+        closeDialog: () -> Unit,
+        playSoundClick: () -> Unit,
+    ) {
         val dialogLayout =
             activity.layoutInflater.inflate(R.layout.element_dialog, null)
 
@@ -49,6 +54,7 @@ object DialogMng {
         }
 
         dialog.setOnDismissListener {
+            playSoundClick.invoke()
             closeDialog.invoke()
         }
         dialog.show()

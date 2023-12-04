@@ -1,9 +1,9 @@
 # Math Game - Elementary School Math Skills
 
-<img src="screenshots/1.jpg" width="258">   <img src="screenshots/2.jpg" width="258">
-<img src="screenshots/3.jpg" width="258">   <img src="screenshots/4.jpg" width="258">
-<img src="screenshots/5.jpg" width="258">   <img src="screenshots/6.jpg" width="258">
-<img src="screenshots/7.jpg" width="258">   
+<img src="screenshots/math_game_feature_graphic.png" width="1024">
+<img src="screenshots/main.jpg" width="512">   <img src="screenshots/topics.jpg" width="512">
+<img src="screenshots/results.jpg" width="512">   <img src="screenshots/history.jpg" width="512">
+<img src="screenshots/settings.jpg" width="512">   
 
 Unleash the math whiz within! Master the four basic mathematical operations with Math Master.
 
@@ -22,4 +22,5 @@ Key Features:
 
 With Math Master, learning math becomes a fun and rewarding experience. Download our app today and start your journey to becoming a Math Master!
 
-<a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Freepik - Flaticon</a>
+flaticon.com/free-icons/tick - Tick icons created by Freepik - Flaticon
+hotpot.ai/art-generator - AI Image Generator

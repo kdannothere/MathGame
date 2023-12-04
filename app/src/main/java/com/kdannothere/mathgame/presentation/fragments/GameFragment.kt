@@ -56,8 +56,14 @@ class GameFragment : Fragment() {
                             viewModel.showNextQuestion(requireActivity() as MainActivity)
                         }
 
+                        DialogType.basicDialog -> {} // do not touch this line
+
                         else -> findNavController().navigate(R.id.action_game_to_results)
                     }
+                    SoundMng.playSoundClick(
+                        requireActivity() as MainActivity,
+                        viewModel.isSoundOn
+                    )
                 }
             )
         }.launchIn(lifecycleScope)
@@ -71,7 +77,8 @@ class GameFragment : Fragment() {
             binding.userAnswer.let {
                 it.isFocusableInTouchMode = true
                 it.requestFocus()
-                val imm = it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
             }
         }, 200)

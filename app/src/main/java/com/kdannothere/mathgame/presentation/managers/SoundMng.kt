@@ -1,5 +1,6 @@
 package com.kdannothere.mathgame.presentation.managers
 
+import android.media.SoundPool
 import androidx.lifecycle.lifecycleScope
 import com.kdannothere.mathgame.R
 import com.kdannothere.mathgame.presentation.MainActivity
@@ -55,19 +56,16 @@ object SoundMng {
         rawResId: Int,
     ) {
         if (!isSoundOn) return
-        activity.lifecycleScope.launch(MathApp.dispatcherIO) {
-            withContext(MathApp.dispatcherMain) {
-                val assetFileDescriptor =
-                    activity.resources.openRawResourceFd(rawResId) ?: return@withContext
-                activity.soundPlayer.reset()
-                activity.soundPlayer.setDataSource(
-                    assetFileDescriptor.fileDescriptor,
-                    assetFileDescriptor.startOffset,
-                    assetFileDescriptor.length
-                )
-                assetFileDescriptor.close()
-                activity.soundPlayer.prepareAsync()
-            }
-        }
+        val assetFileDescriptor =
+            activity.resources.openRawResourceFd(rawResId) ?: return
+        activity.soundPlayer.reset()
+        activity.soundPlayer.setDataSource(
+            assetFileDescriptor.fileDescriptor,
+            assetFileDescriptor.startOffset,
+            assetFileDescriptor.length
+        )
+        assetFileDescriptor.close()
+        activity.soundPlayer.prepareAsync()
     }
+
 }
