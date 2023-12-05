@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     tools:context=".presentation.fragments.HistoryFragment">
 
     <TextView
@@ -90,7 +86,7 @@
         android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="1"
+        tools:itemCount="2"
         tools:listitem="@layout/element_record" />
 
 </LinearLayout>
