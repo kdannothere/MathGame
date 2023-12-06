@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MathGame</string>
+    <string name="app_name">МатеГра</string>
     <string name="task">Завдання:</string>
     <string name="history">Історія</string>
     <string name="button_play_text">Грати</string>
